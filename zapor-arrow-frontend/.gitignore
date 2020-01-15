@@ -19,3 +19,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+
+zapor-arrow-frontend/package.json
+zapor-arrow-frontend/package-lock.json
