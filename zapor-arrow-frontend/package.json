@@ -25,6 +25,10 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    "vue-resource": "^1.5.1",
+>>>>>>> parent of d48746c7... footer done
 =======
     "vue-resource": "^1.5.1",
 >>>>>>> parent of d48746c7... footer done
