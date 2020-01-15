@@ -8,9 +8,9 @@
         <v-row >
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
-                    <v-col v-for="arrow in arrows" :key="arrow.arrowId" class="col-lg-4">
+                    <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4">
                         <v-card max-width="300" max-height="300" class="text-center">
-                            <v-img :src="arrow.imgSrc" class="align-center"></v-img>
+                            <v-img :src="'https://localhost:44310/api/Images?arrowId=' + id" class="align-center"></v-img>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -21,13 +21,22 @@
 <script>
 export default {
     data() {
-            return {
-                arrows:[
-                    
-                ]
-            }
+        return {
+            arrowsIds:[]
         }
-}
+    },
+    created() {
+        this.$http.get('https://localhost:44310/api/Gallery')
+            .then(response => {
+                return response.json();
+            })
+            .then(data =>{
+                for(let key in data){
+                    this.arrowsIds.push(data[key])
+                }
+            });
+        }
+    }
 </script>
 <style scoped>
     .gallery {
