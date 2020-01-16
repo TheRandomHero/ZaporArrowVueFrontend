@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
+import Arrow from './views/Arrow'
 
 
 Vue.use(Router);
@@ -21,6 +22,11 @@ export default new Router({
       path: '/gallery',
       name: 'gallery',
       component: Gallery
-    }   
+    },
+    {
+      path:'/arrow/:id',
+      name:'arrowPage',
+      component:Arrow
+    }
   ]
 })
