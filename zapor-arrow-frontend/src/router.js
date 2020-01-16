@@ -26,7 +26,8 @@ export default new Router({
     {
       path:'/arrow/:id',
       name:'arrowPage',
-      component:Arrow
+      component:Arrow,
+      props: true
     }
   ]
 })

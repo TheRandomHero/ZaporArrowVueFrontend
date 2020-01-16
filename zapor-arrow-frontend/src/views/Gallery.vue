@@ -10,7 +10,7 @@
                 <v-row class="mx-5">
                     <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4">
                         <v-card :href="'/arrow/' + id"  max-width="300" max-height="300" class="text-center">
-                            <v-img :src="'https://localhost:44310/api/Images?arrowId=' + id" class="align-center"></v-img>
+                            <v-img :src="'https://localhost:44310/api/Images/' + id" class="align-center"></v-img>
                         </v-card>
                     </v-col>
                 </v-row>
@@ -25,7 +25,7 @@ export default {
             arrowsIds:[]
         }
     },
-    created() {
+    mounted() {
         this.$http.get('https://localhost:44310/api/Gallery')
             .then(response => {
                 return response.json();
