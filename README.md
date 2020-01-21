@@ -1,2 +1,2 @@
 # ZaporArrowVueFrontend
-Zapor Arrow eCommercial frontend
+Zapor Arrow E-commerce frontend
