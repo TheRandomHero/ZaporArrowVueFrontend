@@ -7,7 +7,7 @@
             </v-toolbar-items>
         </v-toolbar>
         <v-app-bar absolute flat color="transparent d-lg-none">
-            <v-btn color="black--text"  @click="drawer = !drawer" icon class="pl-5" ><v-icon size="50">fas fa-th-list</v-icon></v-btn>
+            <v-btn color="black--text"  @click="drawer = !drawer" icon class="pl-5" ><img width="100" height="100" src="../assets/appolonlogo.png"></v-btn>
         </v-app-bar>
         <v-navigation-drawer v-model="drawer" app temporary>
             <v-list>
