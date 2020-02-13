@@ -1,9 +1,9 @@
 <template>
-    <v-container fluid>
+    <v-container>
         <v-row >
             <v-col cols="6">
                 <v-card>
-                    <img :src="'https://localhost:44310/api/Images/' + $route.params.id "  alt="align-center" width="100%" height="100%">
+                    <img :src="'http://localhost:63085/api/Images/' + $route.params.id "  alt="align-center" width="100%" height="100%">
                 </v-card>
 
             </v-col>
@@ -30,7 +30,7 @@
             }
         },
         created(){
-            this.$http.get('https://localhost:44310/api/Images/arrow/' + this.id)
+            this.$http.get('http://localhost:63085/api/Images/arrow/' + this.id)
             .then(response => {
                 return response.json();
             })
