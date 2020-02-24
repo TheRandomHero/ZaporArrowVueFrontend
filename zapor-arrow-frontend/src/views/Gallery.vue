@@ -26,7 +26,7 @@ export default {
         }
     },
     async mounted() {
-        this.$http.get('http://localhost:63085/api/Gallery')
+        this.$http.get('http://localhost:63085/api/gallery')
             .then(response => {
                 return response.json();
             })

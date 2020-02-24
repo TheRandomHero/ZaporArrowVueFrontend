@@ -4,6 +4,7 @@ import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
 import Arrow from './views/Arrow'
+import Upload from './views/Upload'
 
 
 Vue.use(Router);
@@ -28,6 +29,11 @@ export default new Router({
       name:'arrowPage',
       component:Arrow,
       props: true
+    },
+    {
+      path:'/upload',
+      name:'upload',
+      component:Upload,
     }
   ]
 })
