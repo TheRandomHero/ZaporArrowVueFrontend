@@ -66,7 +66,7 @@ export default {
             fd.append('Description', this.description)
             fd.append('Length', this.length)
             fd.append('PhotoFile', this.selectedFile)
-            this.$http.post()
+                this.$http.post('http://localhost:63085/api/Images', fd)            
         }
     }
 }
