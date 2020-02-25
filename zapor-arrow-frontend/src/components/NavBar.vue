@@ -1,8 +1,8 @@
 <template>
     <nav>
-        <v-toolbar flat prominent  :src="bg" width="100%" height="300%">
+        <v-toolbar flat prominent :src="bg" width="100%" height="300%">
             <v-spacer />
-            <v-toolbar-items v-for="(item,i) in navItems" :key="i">
+            <v-toolbar-items v-for="(item,i) in navItems" :key="i" class="hidden-md-and-down">
                 <v-btn text router :to="item.route" class="off-active nav-items">{{ item.text }} </v-btn>
             </v-toolbar-items>
         </v-toolbar>
