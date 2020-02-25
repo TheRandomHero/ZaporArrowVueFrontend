@@ -1,7 +1,6 @@
 <template>
     <v-container fluid>
-        <v-row class="header" row>
-        </v-row>
+        <app-nav-bar :bg="image"/>
         <v-row>
             <v-col class="col-xs-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 display-1" wrap>
                 
@@ -90,8 +89,17 @@
 </template>
 
 <script>
+import background from './../assets/mainbg.png'
+import NavBar from './../components/NavBar'
     export default {
-        
+        data(){
+            return{
+                image: background
+            } 
+        },
+        components:{
+            appNavBar : NavBar,
+        }
     }
 </script>
 

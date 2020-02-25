@@ -6,6 +6,7 @@
             </v-col>
         </v-layout>
         <v-row >
+         <app-nav-bar></app-nav-bar>
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
                     <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4">
@@ -19,11 +20,16 @@
     </v-container>
 </template>
 <script>
+import NavBar from './../components/NavBar.vue'
+
 export default {
     data() {
         return {
             arrowsIds:[]
         }
+    },
+    components:{
+      appNavBar: NavBar,
     },
     async mounted() {
         this.$http.get('http://localhost:63085/api/gallery')
