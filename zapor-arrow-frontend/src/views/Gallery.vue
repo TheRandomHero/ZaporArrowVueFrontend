@@ -1,11 +1,8 @@
 <template>
     <v-container fluid>
-        <app-nav-bar />
-        <v-layout class="gallery" justify="center" align="center">
-            <v-col class="col-lg-6 offset-lg-3" >
-                <p class="display-3 font-weight-bold main-title">Gallery</p>
-            </v-col>
-        </v-layout>
+        <v-row width="200px">
+            <app-nav-bar :bg="image" class="gallery-bg"/>
+        </v-row>
         <v-row >
          <app-nav-bar></app-nav-bar>
             <v-col class="col-lg-8 offset-lg-2">
@@ -22,11 +19,13 @@
 </template>
 <script>
 import NavBar from './../components/NavBar.vue'
+import background from './../assets/gallery-bg.jpg'
 
 export default {
     data() {
         return {
-            arrowsIds:[]
+            arrowsIds:[],
+            image:background
         }
     },
     components:{
@@ -62,4 +61,5 @@ export default {
         .container{
         padding: 0px
     }
+    
 </style>

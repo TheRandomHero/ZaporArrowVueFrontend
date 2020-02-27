@@ -1,5 +1,6 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid>
+        <app-nav-bar />
         <v-row>
             <v-col class="col-4 offset-4">
             <v-form>
@@ -41,6 +42,9 @@
 </template>
 
 <script>
+
+import NavBar from './../components/NavBar';
+
 export default {
     data(){
         return{
@@ -69,8 +73,12 @@ export default {
                 this.$http.post('http://localhost:63085/api/Images', fd).
                     then(response =>{
                         this.$router.push('/arrow/'+response.data)
+                        this.$emit('arrowAdded')
                     })            
         }
+    },
+    components:{
+        appNavBar: NavBar,
     }
 }
 </script>

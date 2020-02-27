@@ -1,5 +1,6 @@
 <template>
     <v-container fluid fill-height>
+
         <v-img :src="bg">
 
         <v-toolbar absolute flat color="transparent"  width="100%">
@@ -41,7 +42,7 @@
                     {icon: 'far fa-image', text: 'Gallery', route:'/gallery'},
                     {icon: 'far fa-id-badge', text: 'About', route:'/about'}
                 ],
-                image : ''
+                image : '',
             }
         },
         props: {

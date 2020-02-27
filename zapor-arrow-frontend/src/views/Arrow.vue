@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <app-nav-bar :bg="image"></app-nav-bar>
         <v-row >
             <v-col cols="6">
                 <v-card>
@@ -21,12 +22,17 @@
 </template>
 
 <script>
+import NavBar from './../components/NavBar';
+import background from './../assets/bg1.jpg'
+
+
     export default {
         props: ['id'],
 
         data() {
             return {
                 arrow:null,
+                image:background
             }
         },
         created(){
@@ -37,6 +43,9 @@
             .then(data =>{
                 this.arrow = data;
             });
+        },
+        components:{
+            appNavBar: NavBar,
         }
     }
 </script>
