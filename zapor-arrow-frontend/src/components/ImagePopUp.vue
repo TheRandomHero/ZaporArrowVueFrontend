@@ -11,7 +11,13 @@
                 </v-col>
             </v-row>
         </template>
-
+        <v-row>
+            <v-col>
+                <v-card>
+                    <img :src="'http://localhost:63085/api/Images/' + arrowId "  alt="align-center" width="100%" height="100%">
+                </v-card>
+            </v-col>
+        </v-row>
     </v-dialog>
 </template> 
 
@@ -20,9 +26,19 @@ export default {
     data(){
         return{
             dialog:false,
+            arrow:null
         }
     },
-    props:['arrowId']
+    props:['arrowId'],
+    mounted: function(){
+        this.$nextTick(this.$http.get('http://localhost:63085/api/Images/arrow/' + this.id)).
+        then(response => {
+                return response.json();
+            })
+            .then(data =>{
+                this.arrow = data;
+            });
+    }
 }
 </script>
 
