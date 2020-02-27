@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" max-width="600px">
+    <v-dialog v-model="dialog" max-width="1000px">
         <template v-slot:activator="{ on }">
             <v-row>
                 <v-col>
@@ -17,6 +17,16 @@
                     <img :src="'http://localhost:63085/api/Images/' + arrowId "  alt="align-center" width="100%" height="100%">
                 </v-card>
             </v-col>
+            <v-col>
+                <v-card>
+                    <v-card-title>Length: </v-card-title>
+                    <v-card-text v-if="arrow">{{ arrow.length }}</v-card-text>
+                </v-card>
+                <v-card>
+                    <v-card-title>Description: </v-card-title>
+                    <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
+                </v-card>
+            </v-col>
         </v-row>
     </v-dialog>
 </template> 
@@ -31,14 +41,16 @@ export default {
     },
     props:['arrowId'],
     mounted: function(){
-        this.$nextTick(this.$http.get('http://localhost:63085/api/Images/arrow/' + this.id)).
-        then(response => {
-                return response.json();
+        this.$nextTick(function(){
+            this.$http.get('http://localhost:63085/api/Images/arrow/' + this.arrowId).
+                then(response => {
+                    return response.json();
+                })
+                .then(data =>{
+                    this.arrow = data;
+                });
             })
-            .then(data =>{
-                this.arrow = data;
-            });
-    }
+        }
 }
 </script>
 
