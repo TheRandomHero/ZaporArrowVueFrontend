@@ -3,8 +3,8 @@
         <template v-slot:activator="{ on }">
             <v-row>
                 <v-col>
-                    <v-btn flat v-on="on">
-                        <v-card max-width="300" max-height="300" class="text-center">
+                    <v-btn text v-on="on" min-width="250" min-height="250">
+                        <v-card max-width="250" max-height="250" class="text-center">
                             <v-img :src="'http://localhost:63085/api/Images/' + arrowId" class="align-center"></v-img>
                         </v-card>
                     </v-btn>

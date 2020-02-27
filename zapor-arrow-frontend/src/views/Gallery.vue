@@ -7,7 +7,7 @@
          <app-nav-bar></app-nav-bar>
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
-                    <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4">
+                    <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4 col-md-6 col-sm-8">
                         <image-pop-up :arrowId="id"/>
                     </v-col>
                 </v-row>
