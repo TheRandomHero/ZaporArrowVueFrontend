@@ -8,28 +8,30 @@
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
                     <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4">
-                        <v-card :href="'/arrow/' + id"  max-width="300" max-height="300" class="text-center">
-                            <v-img :src="'http://localhost:63085/api/Images/' + id" class="align-center"></v-img>
-                        </v-card>
+                        <image-pop-up :arrowId="id"/>
                     </v-col>
                 </v-row>
             </v-col>
         </v-row>
     </v-container>
 </template>
+
 <script>
 import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
+import Popup from './../components/ImagePopUp'
 
 export default {
     data() {
         return {
             arrowsIds:[],
-            image:background
+            image:background,
+            dialog:false
         }
     },
     components:{
       appNavBar: NavBar,
+      ImagePopUp: Popup,
     },
     async mounted() {
         this.$http.get('http://localhost:63085/api/gallery')
