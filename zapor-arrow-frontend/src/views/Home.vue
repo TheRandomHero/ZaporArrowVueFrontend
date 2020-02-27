@@ -104,6 +104,7 @@ import NavBar from './../components/NavBar'
 </script>
 
 <style scoped>
+
     .header {
         position: relative;
         background-image: url('../assets/mainbg.png');

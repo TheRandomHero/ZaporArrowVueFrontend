@@ -1,5 +1,6 @@
 <template>
     <v-container fluid>
+        <app-nav-bar />
         <v-layout class="gallery" justify="center" align="center">
             <v-col class="col-lg-6 offset-lg-3" >
                 <p class="display-3 font-weight-bold main-title">Gallery</p>
