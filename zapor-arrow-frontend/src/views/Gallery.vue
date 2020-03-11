@@ -7,8 +7,8 @@
          <app-nav-bar></app-nav-bar>
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
-                    <v-col v-for="id in arrowsIds" :key="id" class="col-lg-4 col-md-6 col-sm-8">
-                        <image-pop-up :arrowId="id"/>
+                    <v-col v-for="(arrId, imgId) in ids" :key="imgId" class="col-lg-4 col-md-6 col-sm-8">
+                        <image-pop-up :imageId="imgId" :arrowId ="arrId"/>
                     </v-col>
                 </v-row>
             </v-col>
@@ -24,7 +24,8 @@ import Popup from './../components/ImagePopUp'
 export default {
     data() {
         return {
-            arrowsIds:[],
+            ids: null,
+            
             image:background,
             dialog:false
         }
@@ -33,15 +34,13 @@ export default {
       appNavBar: NavBar,
       ImagePopUp: Popup,
     },
-    async mounted() {
+    mounted() {
         this.$http.get('http://localhost:63085/api/gallery')
             .then(response => {
                 return response.json();
             })
             .then(data =>{
-                for(let key in data){
-                    this.arrowsIds.push(data[key])
-                }
+                    this.ids = data
             });
         }
     }

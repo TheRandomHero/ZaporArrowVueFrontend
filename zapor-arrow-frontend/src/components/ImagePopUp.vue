@@ -3,13 +3,9 @@
         <template v-slot:activator="{ on }">
             <v-row>
                 <v-col>
-                    <v-btn text v-on="on" min-width="250" min-height="250">
+                    <v-btn text v-on="on" :loading="loader" min-width="250" min-height="250" >
                         <v-card max-width="250" max-height="250" class="text-center">
-<<<<<<< Updated upstream
-                            <v-img :src="'http://localhost:63085/api/Images/' + arrowId" class="align-center"></v-img>
-=======
-                            <v-img :src="'http://localhost:63085/api/Images/' + imageId"  class="align-center"></v-img>
->>>>>>> Stashed changes
+                            <v-img :src="'http://localhost:63085/api/Images/' + imageId" aspect-ratio="1" class="align-center"></v-img>
                         </v-card>
                     </v-btn>
                 </v-col>
@@ -17,11 +13,6 @@
         </template>
         <v-row>
             <v-col>
-<<<<<<< Updated upstream
-                <v-card>
-                    <img :src="'http://localhost:63085/api/Images/' + arrowId "  alt="align-center" width="100%" height="100%">
-                </v-card>
-=======
                 <v-row>
                     <v-card>
                         <img :src="'http://localhost:63085/api/Images/' + imageId "  alt="align-center" width="100%" height="100%">
@@ -32,7 +23,6 @@
                         <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="40%" height="100%" >
                     </v-col>
                 </v-row>
->>>>>>> Stashed changes
             </v-col>
             <v-col>
                 <v-card>
@@ -46,23 +36,19 @@
             </v-col>
         </v-row>
     </v-dialog>
-</template> 
+</template>
 
 <script>
 export default {
     data(){
         return{
             dialog:false,
-<<<<<<< Updated upstream
-            arrow:null
-=======
             arrow:null,
             loader: true,
             restImageIdForArrow:[]
->>>>>>> Stashed changes
         }
     },
-    props:['arrowId'],
+    props:['imageId', 'arrowId'],
     mounted: function(){
         this.$nextTick(function(){
             this.$http.get('http://localhost:63085/api/Images/arrow/' + this.arrowId).
@@ -71,6 +57,7 @@ export default {
                 })
                 .then(data =>{
                     this.arrow = data;
+                    this.loader = false;
                 });
             }),
             this.$http.get('http://localhost:63085/api/Images/image/' + this.arrowId)
@@ -83,7 +70,7 @@ export default {
                     }
                 });
         },
-       
+
 }
 </script>
 
