@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid :class="{myBlurEffect: isActive}">
         <v-row width="200px">
             <app-nav-bar :bg="image" class="gallery-bg"/>
         </v-row>
@@ -8,7 +8,7 @@
             <v-col class="col-lg-8 offset-lg-2">
                 <v-row class="mx-5">
                     <v-col v-for="(arrId, imgId) in ids" :key="imgId" class="col-lg-4 col-md-6 col-sm-8">
-                        <image-pop-up :imageId="imgId" :arrowId ="arrId"/>
+                        <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
                     </v-col>
                 </v-row>
             </v-col>
@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             ids: null,
-            
+            isActive:false,
             image:background,
             dialog:false
         }
@@ -42,7 +42,12 @@ export default {
             .then(data =>{
                     this.ids = data
             });
+        },
+    methods:{
+        changeBackground(){
+            this.isActive = !this.isActive
         }
+    }
     }
 </script>
 <style scoped>
@@ -61,6 +66,9 @@ export default {
         }
         .container{
         padding: 0px
+        }
+        .myBlurEffect{
+            filter: blur(6px);
+            -webkit-filter: blur(6px);
     }
-    
 </style>

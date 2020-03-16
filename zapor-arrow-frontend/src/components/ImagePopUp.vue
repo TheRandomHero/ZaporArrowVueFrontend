@@ -1,9 +1,9 @@
 <template>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" fullscreen>
         <template v-slot:activator="{ on }">
             <v-row>
                 <v-col>
-                    <v-btn text v-on="on" min-width="250" min-height="250">
+                    <v-btn text v-on="on" min-width="250" min-height="250" rounded>
                         <v-card max-width="250" max-height="250" class="text-center">
                             <v-img :src="'http://localhost:63085/api/Images/' + imageId" class="align-center" width="100%" height="100%"></v-img>
                         </v-card>
@@ -11,24 +11,28 @@
                 </v-col>
             </v-row>
         </template>
-            <v-row align-content="start">
+        <v-container fluid fill-height class="popup">
+            <v-row align-content="start" justify="center">
                 <v-col cols="6" offset="3">
                     <img :src="'http://localhost:63085/api/Images/' + imageId "  alt="align-center" width="60%" height="100%">
                 </v-col>
             </v-row>
-            <v-row>
-                <v-card >
+            <v-row justify="center">
+                <v-card flat tile >
                     <v-card-title>Description: </v-card-title>
                     <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
                 </v-card>
             </v-row>
             <v-row>
-                <v-col cols="6" offset="3">
-                    <v-col v-for="id in restImageIdForArrow" :key="id" >
-                        <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="40%" height="100%" >
-                    </v-col>
+                <v-col cols="8" offset="2">
+                    <v-row justify="center">
+                        <v-card v-for="id in imageIdsForArrow" :key="id" max-height="80%"  max-width="20%" class="mx-2">
+                            <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="100%" height="100%" >
+                        </v-card>
+                    </v-row>
                 </v-col>
             </v-row>
+        </v-container>
             <!-- <v-row>
                 <v-col>
                     <v-row>
@@ -57,7 +61,7 @@ export default {
             dialog:false,
             arrow:null,
             loader: true,
-            restImageIdForArrow:[]
+            imageIdsForArrow:[]
         }
     },
     props:['arrowId','imageId'],
@@ -76,15 +80,26 @@ export default {
                     return response.json();
                 })
                 .then(data => {
+                    this.imageIdsForArrow.push(this.imageId)
                     for(let id in data){
-                        this.restImageIdForArrow.push(data[id]);
+                        this.imageIdsForArrow.push(data[id]);
                     }
                 });
         },
-       
+        
+        watch:{
+            'dialog': function(){
+                this.$emit('blurBackground', this.dialog)
+            }
+        }
 }
 </script>
 
 <style scoped>
+    .popup{
+        background-color: black;
+        background-color: rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+    }
 
 </style>
