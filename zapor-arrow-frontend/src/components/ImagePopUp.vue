@@ -14,7 +14,7 @@
         <v-container fluid fill-height class="popup">
             <v-row align-content="start" justify="center">
                 <v-col cols="6" offset="3">
-                    <img :src="'http://localhost:63085/api/Images/' + imageId "  alt="align-center" width="60%" height="100%">
+                    <img :src="'http://localhost:63085/api/Images/' + mainImage "  alt="align-center" width="60%" height="100%">
                 </v-col>
             </v-row>
             <v-row justify="center">
@@ -26,31 +26,13 @@
             <v-row>
                 <v-col cols="8" offset="2">
                     <v-row justify="center">
-                        <v-card v-for="id in imageIdsForArrow" :key="id" max-height="80%"  max-width="20%" class="mx-2">
-                            <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="100%" height="100%" >
+                        <v-card v-for="(id, i) in imageIdsForArrow" :key="i" max-height="80%"  max-width="20%" class="mx-2">
+                            <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="100%" height="100%"  @click="changeMainImage(i)">
                         </v-card>
                     </v-row>
                 </v-col>
             </v-row>
         </v-container>
-            <!-- <v-row>
-                <v-col>
-                    <v-row>
-                        <img :src="'http://localhost:63085/api/Images/' + imageId "  alt="align-center" width="60%" height="100%">
-                    </v-row>
-                    <v-row>
-                        <v-col v-for="id in restImageIdForArrow" :key="id">
-                            <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="40%" height="100%" >
-                        </v-col>
-                    </v-row>
-                </v-col>
-                <v-col>
-                    <v-card transparent>
-                        <v-card-title>Description: </v-card-title>
-                        <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
-                    </v-card>
-                </v-col>
-            </v-row> -->
     </v-dialog>
 </template> 
 
@@ -59,12 +41,18 @@ export default {
     data(){
         return{
             dialog:false,
+            imgIndex:0,
             arrow:null,
             loader: true,
+            mainImage:null,
             imageIdsForArrow:[]
         }
     },
-    props:['arrowId','imageId'],
+    props:{
+        arrowId: String,
+        imageId: String,
+    },
+
     mounted: function(){
         this.$nextTick(function(){
             this.$http.get('http://localhost:63085/api/Images/arrow/' + this.arrowId).
@@ -85,13 +73,22 @@ export default {
                         this.imageIdsForArrow.push(data[id]);
                     }
                 });
+            this.mainImage = this.imageIdsForArrow[this.imgIndex]
         },
         
-        watch:{
+    watch:{
             'dialog': function(){
                 this.$emit('blurBackground', this.dialog)
+            },
+            'imgIndex': function(){
+                this.mainImage = this.imageIdsForArrow[this.imgIndex]
             }
+        },
+    methods:{
+        changeMainImage(index){
+            this.imgIndex = index;
         }
+    }
 }
 </script>
 
