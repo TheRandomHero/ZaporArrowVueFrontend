@@ -11,10 +11,11 @@
                 </v-col>
             </v-row>
         </template>
-        <v-container fluid fill-height class="popup">
+        <v-container fluid fill-height @click="close" class="popup">
+            
             <v-row align-content="start" justify="center">
                 <v-col cols="6" offset="3">
-                    <img :src="'http://localhost:63085/api/Images/' + mainImage "  alt="align-center" width="60%" height="100%">
+                    <v-img :src="imgUrl"  alt="align-center" width="60%" height="100%" @click.stop="next" ></v-img>
                 </v-col>
             </v-row>
             <v-row justify="center">
@@ -26,8 +27,16 @@
             <v-row>
                 <v-col cols="8" offset="2">
                     <v-row justify="center">
-                        <v-card v-for="(id, i) in imageIdsForArrow" :key="i" max-height="80%"  max-width="20%" class="mx-2">
-                            <img :src="'http://localhost:63085/api/Images/' + id" alt="align-center" width="100%" height="100%"  @click="changeMainImage(i)">
+                        <v-card v-for="(id, i) in imageIdsForArrow" :key="i" 
+                                max-height="80%"  
+                                max-width="20%" 
+                                class="mx-2 thumb"
+                                elevation-10>
+                            <img :src="'http://localhost:63085/api/Images/' + id"
+                            class="img-thumbs"
+                            :class="{'img-thumbs--active' : i === imgIndex}" 
+                            alt="align-center" width="100%" height="100%"  
+                            @click.stop="changeMainImage(i)">
                         </v-card>
                     </v-row>
                 </v-col>
@@ -73,7 +82,6 @@ export default {
                         this.imageIdsForArrow.push(data[id]);
                     }
                 });
-            this.mainImage = this.imageIdsForArrow[this.imgIndex]
         },
         
     watch:{
@@ -82,11 +90,27 @@ export default {
             },
             'imgIndex': function(){
                 this.mainImage = this.imageIdsForArrow[this.imgIndex]
-            }
+            },
         },
     methods:{
         changeMainImage(index){
             this.imgIndex = index;
+        },
+        close(){
+            this.dialog = false;
+        },
+        next(){
+            this.imgIndex += 1;
+            if(this.imgIndex >= this.imageIdsForArrow.length){
+                this.imgIndex = 0;
+            }
+        }
+    },
+    computed:{
+        imgUrl(){
+            const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
+
+            return imgSource
         }
     }
 }
@@ -94,9 +118,23 @@ export default {
 
 <style scoped>
     .popup{
-        background-color: black;
         background-color: rgba(0, 0, 0, 0.6);
         overflow: hidden;
     }
-
+    
+    .thumb{
+        background-color: black;
+    }
+    .img-thumbs{
+        display: inline-block;
+        float: none;
+        cursor: pointer;
+        object-fit: cover;
+        opacity: 0.6;
+    }
+    .img-thumbs--active{
+        display: inline-block;
+        float: none;
+        opacity: 1;
+    }
 </style>

@@ -6,6 +6,9 @@ import VueResourse from 'vue-resource';
 
 import '@fortawesome/fontawesome-free/css/all.css'
 
+import { store } from './store/store';
+
+
 Vue.config.productionTip = false
 
 Vue.use(VueResourse);
@@ -17,5 +20,6 @@ Vue.use(vuetify, {
 new Vue({
   vuetify,
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

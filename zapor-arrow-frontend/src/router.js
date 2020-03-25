@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
 import Arrow from './views/Arrow'
 import Upload from './views/Upload'
+import Login from './views/Login'
 
 
 Vue.use(Router);
@@ -34,6 +35,11 @@ export default new Router({
       path:'/upload',
       name:'upload',
       component:Upload,
+    },
+    {
+      path:'/login',
+      name:'login',
+      component:Login
     }
   ]
 })
