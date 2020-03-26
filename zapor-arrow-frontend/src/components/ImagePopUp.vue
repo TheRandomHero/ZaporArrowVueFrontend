@@ -31,12 +31,16 @@
                                 max-height="80%"  
                                 max-width="20%" 
                                 class="mx-2 thumb"
-                                elevation-10>
-                            <img :src="'http://localhost:63085/api/Images/' + id"
+                                elevation-10> 
+                            <v-btn icon color="red" fixed fab dark>
+                                <v-icon>fas fa-trash-alt</v-icon>
+                            </v-btn>
+                            <v-img :src="'http://localhost:63085/api/Images/' + id"
                             class="img-thumbs"
                             :class="{'img-thumbs--active' : i === imgIndex}" 
                             alt="align-center" width="100%" height="100%"  
                             @click.stop="changeMainImage(i)">
+                            </v-img>
                         </v-card>
                     </v-row>
                 </v-col>
@@ -46,6 +50,9 @@
 </template> 
 
 <script>
+
+import { mapGetters} from 'vuex';
+
 export default {
     data(){
         return{
@@ -54,7 +61,7 @@ export default {
             arrow:null,
             loader: true,
             mainImage:null,
-            imageIdsForArrow:[]
+            imageIdsForArrow:[],
         }
     },
     props:{
@@ -107,10 +114,16 @@ export default {
         }
     },
     computed:{
+        ...mapGetters([
+            'getToken',
+        ]),
         imgUrl(){
             const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
 
             return imgSource
+        },
+        isLoggedIn(){
+            return this.getToken !== null ? true : false
         }
     }
 }

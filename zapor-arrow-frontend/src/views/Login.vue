@@ -59,9 +59,13 @@ export default {
           fd.append('password', this.password)
           this.$http.post('http://localhost:63085/api/Account', fd)
             .then(response =>{
-                console.log(response.data)
+                this.$store.state.jwt = response.data['token']
             })
-      }  
+      },
+      clear(){
+          this.username = "",
+          this.password = ""
+      }
     },
     components:{
         appNavBar: NavBar
