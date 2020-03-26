@@ -27,21 +27,23 @@
             <v-row>
                 <v-col cols="8" offset="2">
                     <v-row justify="center">
-                        <v-card v-for="(id, i) in imageIdsForArrow" :key="i" 
-                                max-height="80%"  
-                                max-width="20%" 
-                                class="mx-2 thumb"
-                                elevation-10> 
-                            <v-btn icon color="red" fixed fab dark>
-                                <v-icon>fas fa-trash-alt</v-icon>
-                            </v-btn>
-                            <v-img :src="'http://localhost:63085/api/Images/' + id"
-                            class="img-thumbs"
-                            :class="{'img-thumbs--active' : i === imgIndex}" 
-                            alt="align-center" width="100%" height="100%"  
-                            @click.stop="changeMainImage(i)">
-                            </v-img>
-                        </v-card>
+                        <v-col v-for="(id, i) in imageIdsForArrow" :key="i" cols="4">
+                            <v-btn v-if="isLoggedIn"
+                                color="red"
+                                class="btn-fix"
+                                fab icon absolute
+                                @click.stop="deleteImage(id)">
+                                    <v-icon >fas fa-trash-alt</v-icon>
+                                </v-btn>
+                            <v-card flat style="background-color:transparent"> 
+                                <v-img :src="'http://localhost:63085/api/Images/' + id"
+                                class="img-thumbs"
+                                :class="{'img-thumbs--active' : i === imgIndex}" 
+                                alt="align-center" width="100%" height="100%"  
+                                @click.stop="changeMainImage(i)">
+                                </v-img>
+                            </v-card>
+                        </v-col>
                     </v-row>
                 </v-col>
             </v-row>
@@ -50,8 +52,6 @@
 </template> 
 
 <script>
-
-import { mapGetters} from 'vuex';
 
 export default {
     data(){
@@ -99,6 +99,8 @@ export default {
                 this.mainImage = this.imageIdsForArrow[this.imgIndex]
             },
         },
+
+
     methods:{
         changeMainImage(index){
             this.imgIndex = index;
@@ -111,19 +113,19 @@ export default {
             if(this.imgIndex >= this.imageIdsForArrow.length){
                 this.imgIndex = 0;
             }
+        },
+        deleteImage(imageId){
+            console.log(imageId)
         }
     },
     computed:{
-        ...mapGetters([
-            'getToken',
-        ]),
         imgUrl(){
             const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
 
             return imgSource
         },
         isLoggedIn(){
-            return this.getToken !== null ? true : false
+            return this.$cookie.get('token') !== null ? true : false;
         }
     }
 }
@@ -150,4 +152,7 @@ export default {
         float: none;
         opacity: 1;
     }
+    .btn-fix:focus::before { 
+        opacity: 0 !important; 
+        }
 </style>

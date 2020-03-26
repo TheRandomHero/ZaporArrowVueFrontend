@@ -5,11 +5,14 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state:{
-        "jwt":'',
+        jwt:null,
     },
     getters:{
         getToken: state => {
-            return 'Bearer ' + state.jwt;
+            return state.jwt === null ? null : 'Bearer ' + state.jwt;
+        },
+        isLoggedIn: state =>{
+            return state.jwt === null ? false : true;
         }
     }
 })
