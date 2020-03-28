@@ -31,13 +31,13 @@
                             <v-btn v-if="isLoggedIn"
                                 color="red"
                                 class="btn-fix"
-                                fab icon absolute
+                                fab absolute
                                 @click.stop="deleteImage(id)">
                                     <v-icon >fas fa-trash-alt</v-icon>
                                 </v-btn>
                             <v-card flat style="background-color:transparent"> 
                                 <v-img :src="'http://localhost:63085/api/Images/' + id"
-                                class="img-thumbs"
+                                class="img-thumbs mt-6 ml-6"
                                 :class="{'img-thumbs--active' : i === imgIndex}" 
                                 alt="align-center" width="100%" height="100%"  
                                 @click.stop="changeMainImage(i)">
@@ -153,6 +153,7 @@ export default {
         opacity: 1;
     }
     .btn-fix:focus::before { 
+        z-index: 15;
         opacity: 0 !important; 
         }
 </style>
