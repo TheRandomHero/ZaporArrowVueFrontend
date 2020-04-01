@@ -1,3 +1,4 @@
+
 <template>
     <v-dialog v-model="dialog" fullscreen>
         <template v-slot:activator="{ on }">
@@ -60,7 +61,6 @@
 </template> 
 
 <script>
-
 export default {
     data(){
         return{
@@ -76,7 +76,6 @@ export default {
         arrowId: String,
         imageId: String,
     },
-
     mounted: function(){
         this.$nextTick(function(){
             this.$http.get('http://localhost:63085/api/Arrow/' + this.arrowId).
@@ -107,8 +106,6 @@ export default {
                 this.mainImage = this.imageIdsForArrow[this.imgIndex]
             },
         },
-
-
     methods:{
         changeMainImage(index){
             this.imgIndex = index;
@@ -129,7 +126,6 @@ export default {
     computed:{
         imgUrl(){
             const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
-
             return imgSource
         },
         isLoggedIn(){
@@ -168,7 +164,6 @@ export default {
         height: 100vh;
         display: inline-block;
     }
-
     .btn-fix:focus::before { 
         z-index: 15;
         opacity: 0 !important; 
