@@ -11,33 +11,41 @@
                 </v-col>
             </v-row>
         </template>
-        <v-container fluid fill-height @click="close" class="popup">
+        <v-container fluid @click="close" class="popup">
             
             <v-row align-content="start" justify="center">
-                <v-col cols="6" offset="3">
+                <v-col cols="8">
                     <v-img :src="imgUrl"  alt="align-center" width="60%" height="100%" @click.stop="next" ></v-img>
+                </v-col>
+                <v-col cols="4">
+                    <v-card flat tile >
+                        <v-card-title>Description: </v-card-title>
+                        <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
+                </v-card>
                 </v-col>
             </v-row>
             <v-row justify="center">
-                <v-card flat tile >
-                    <v-card-title>Description: </v-card-title>
-                    <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
-                </v-card>
-            </v-row>
-            <v-row>
-                <v-col cols="8" offset="2">
-                    <v-row justify="center">
+                <v-col class="image-container" cols="8" offset="2">
+                    <v-row >
                         <v-col v-for="(id, i) in imageIdsForArrow" :key="i" cols="4">
-                            <v-btn v-if="isLoggedIn"
-                                color="red"
-                                class="btn-fix"
-                                fab absolute
-                                @click.stop="deleteImage(id)">
-                                    <v-icon >fas fa-trash-alt</v-icon>
-                                </v-btn>
                             <v-card flat style="background-color:transparent"> 
+                                <v-row>
+                                    <v-btn v-if="isLoggedIn"
+                                    color="red"
+                                    class="btn-fix"
+                                    fab
+                                    @click.stop="deleteImage(id)">
+                                        <v-icon >fas fa-trash-alt</v-icon>
+                                    </v-btn>
+                                    
+                                    <v-spacer></v-spacer>
+                                    <v-btn v-if="isLoggedIn"
+                                    fab class="btn-fix">
+                                        <v-icon>fas fa-edit</v-icon>
+                                    </v-btn>
+                                </v-row>
                                 <v-img :src="'http://localhost:63085/api/Images/' + id"
-                                class="img-thumbs mt-6 ml-6"
+                                class="img-thumbs"
                                 :class="{'img-thumbs--active' : i === imgIndex}" 
                                 alt="align-center" width="100%" height="100%"  
                                 @click.stop="changeMainImage(i)">
@@ -71,7 +79,7 @@ export default {
 
     mounted: function(){
         this.$nextTick(function(){
-            this.$http.get('http://localhost:63085/api/Images/arrow/' + this.arrowId).
+            this.$http.get('http://localhost:63085/api/Arrow/' + this.arrowId).
                 then(response => {
                     return response.json();
                 })
@@ -79,7 +87,7 @@ export default {
                     this.arrow = data;
                 });
             }),
-            this.$http.get('http://localhost:63085/api/Images/image/' + this.arrowId)
+            this.$http.get('http://localhost:63085/api/Images/getall/' + this.arrowId)
                 .then(response =>{
                     return response.json();
                 })
@@ -134,26 +142,35 @@ export default {
 <style scoped>
     .popup{
         background-color: rgba(0, 0, 0, 0.6);
+        display: block;
         overflow: hidden;
+        height: 100vh;
     }
     
     .thumb{
         background-color: black;
     }
     .img-thumbs{
-        display: inline-block;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
         float: none;
         cursor: pointer;
-        object-fit: cover;
+        margin-right: 20px;
         opacity: 0.6;
     }
     .img-thumbs--active{
-        display: inline-block;
-        float: none;
         opacity: 1;
     }
+    .image-container{
+        width: 100%;
+        overflow-x: auto;
+        height: 100vh;
+        display: inline-block;
+    }
+
     .btn-fix:focus::before { 
         z-index: 15;
         opacity: 0 !important; 
-        }
+    }
 </style>
