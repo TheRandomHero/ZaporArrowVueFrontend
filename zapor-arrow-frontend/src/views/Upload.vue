@@ -64,7 +64,7 @@ export default {
             const fd = new FormData()
             fd.append('Description', this.description)
             fd.append('PhotoFile', this.selectedFile)
-                this.$http.post('http://localhost:63085/api/Images', fd).
+                this.$http.post('http://localhost:63085/api/Arrow', fd).
                     then(response =>{
                         this.$router.push('/arrow/'+response.data)
                         this.$emit('arrowAdded')
