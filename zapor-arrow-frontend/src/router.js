@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
-import UpdateArrow from './views/Arrow'
+import UpdateArrow from './views/UpdateArrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
 
