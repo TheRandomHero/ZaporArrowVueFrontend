@@ -5,10 +5,6 @@
             <v-col class="col-4 offset-4">
             <v-form>
                 
-                <v-text-field
-                v-model="length"
-                label="Length"
-                required></v-text-field>
                 <v-textarea
                 v-model="description"
                 label="Description"
@@ -50,7 +46,6 @@ export default {
         return{
             selectedFile: null,
             imageUrl: '',
-            length:'',
             description:''
 
         }
@@ -68,7 +63,6 @@ export default {
         onUpload(){
             const fd = new FormData()
             fd.append('Description', this.description)
-            fd.append('Length', this.length)
             fd.append('PhotoFile', this.selectedFile)
                 this.$http.post('http://localhost:63085/api/Images', fd).
                     then(response =>{

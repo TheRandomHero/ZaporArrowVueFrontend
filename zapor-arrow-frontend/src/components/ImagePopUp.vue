@@ -142,7 +142,7 @@ export default {
 <style scoped>
     .popup{
         background-color: rgba(0, 0, 0, 0.6);
-        display: block;
+        display: inline-flex;
         overflow: hidden;
         height: 100vh;
     }
@@ -165,7 +165,6 @@ export default {
     .image-container{
         width: 100%;
         overflow-x: auto;
-        height: 100vh;
         display: inline-block;
     }
 
