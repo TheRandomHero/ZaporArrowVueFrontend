@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import cookies from 'vue-cookies'
 
 Vue.use(Vuex);
 
@@ -8,11 +9,8 @@ export const store = new Vuex.Store({
         jwt:null,
     },
     getters:{
-        getToken: state => {
-            return state.jwt === null ? null : 'Bearer ' + state.jwt;
-        },
-        isLoggedIn: state =>{
-            return state.jwt === null ? false : true;
+        isLoggedIn: function (){
+            return cookies.isKey('token');
         }
-    }
+    },
 })

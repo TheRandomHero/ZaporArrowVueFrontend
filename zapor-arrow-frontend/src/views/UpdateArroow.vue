@@ -10,10 +10,6 @@
             </v-col>
             <v-col cols="6">
                 <v-card>
-                    <p>Length:</p>
-                    <p v-if="arrow">{{arrow.length}}</p>
-                </v-card>
-                <v-card>
                     <p v-if="arrow">{{arrow.description}}</p>
                 </v-card>
             </v-col>

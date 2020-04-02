@@ -5,8 +5,11 @@
 
         <v-toolbar absolute flat color="transparent"  width="100%">
             <v-spacer />
-            <v-toolbar-items v-for="(item,i) in navItems" :key="i" class="hidden-md-and-down nagy-medve" >
+            <v-toolbar-items v-for="(item,i) in navItems" :key="i" class="hidden-md-and-down" >
                 <v-btn text router :to="item.route" class="off-active nav-items ">{{ item.text }} </v-btn>
+            </v-toolbar-items>
+            <v-toolbar-items v-if="isLoggedIn" class="hidden-md-and-down">
+                <v-btn text router to="/upload" class="off-active nav-items">Upload</v-btn>
             </v-toolbar-items>
         </v-toolbar>
         <v-app-bar absolute flat color="transparent d-lg-none">
@@ -24,6 +27,14 @@
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>{{ item.text }}</v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="isLoggedIn" router to="/upload">
+                    <v-list-item-icon>
+                        <v-icon>fas fa-file-upload</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        <v-list-item-title>Upload</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
             </v-list>
@@ -48,6 +59,11 @@
         props: {
             bg: String
         },
+        computed:{
+            isLoggedIn(){
+                return this.$cookies.isKey('token');
+            }
+        }
 
     }
 </script>

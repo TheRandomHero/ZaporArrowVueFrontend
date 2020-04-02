@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
-import Arrow from './views/Arrow'
+import UpdateArrow from './views/Arrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
 
@@ -11,14 +11,14 @@ import Login from './views/Login'
 Vue.use(Router);
 Vue.use(VueResource);
 
-export default new Router({
+const  router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
     },
     {
       path: '/gallery',
@@ -28,13 +28,19 @@ export default new Router({
     {
       path:'/arrow/:id',
       name:'arrowPage',
-      component:Arrow,
-      props: true
+      component:UpdateArrow,
+      props: true,
+      meta:{
+        requiresAuth: true,
+      }
     },
     {
       path:'/upload',
       name:'upload',
       component:Upload,
+      meta:{
+        requiresAuth: true,
+      }
     },
     {
       path:'/login',
@@ -43,3 +49,20 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next)=>{
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    if(!window.$cookies.isKey('token')){
+      next({
+        name:'login'
+      }
+      )
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router;

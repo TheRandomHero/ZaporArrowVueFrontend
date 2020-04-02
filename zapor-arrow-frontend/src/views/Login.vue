@@ -59,7 +59,7 @@ export default {
           fd.append('password', this.password)
           this.$http.post('http://localhost:63085/api/Account', fd)
             .then(response =>{
-                this.$cookie.set('token', response.data['token'])
+                this.$cookies.set('token', response.data['token'])
                 this.$router.push('/gallery')
             })
       },
