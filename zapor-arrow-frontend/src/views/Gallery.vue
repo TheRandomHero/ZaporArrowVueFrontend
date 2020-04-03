@@ -1,25 +1,16 @@
 <template>
     <v-container fluid :class="{myBlurEffect: isActive}">
         <v-row width="200px">
-            <app-nav-bar :bg="image" class="gallery-bg"/>
+            <app-nav-bar :bg="image"/>
         </v-row>
-        <v-row >
-         <app-nav-bar></app-nav-bar>
-            <v-col class="col-lg-8 offset-lg-2">
-                <div>
-                    <div class="gallery-panel"
-                    v-for="(arrId, imgId) in ids" :key="imgId">
-                        <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
-                    </div>
-                </div>
-            </v-col>
+        <app-nav-bar></app-nav-bar>
+        <v-row class="gallery" >
+            <div v-for="(arrId, imgId) in ids" :key="imgId" class="gallery-content">
+                <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
+            </div>
         </v-row>
     </v-container>
-            <!-- <v-row class="mx-5">
-                <v-col v-for="(arrId, imgId) in ids" :key="imgId" class="col-lg-4 col-md-6 col-sm-8">
-
-                </v-col>
-            </v-row> -->
+            
 </template>
 
 
@@ -59,20 +50,13 @@ export default {
 </script>
 <style scoped>
     .gallery {
-        position: relative;
-        width: 100%;
-        height: auto;
-        padding-top: 20%;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .main-title{
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
+        display: flex;
+        justify-content: flex-start;
+        min-width: 100%;
     }
 
-    .container{
-    padding: 0px
+    .main-title{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
     }
 
     .myBlurEffect{

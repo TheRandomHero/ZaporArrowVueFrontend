@@ -1,25 +1,21 @@
 <template>
     <v-dialog v-model="dialog" fullscreen>
         <template v-slot:activator="{ on }">
-            <v-row>
-                <v-col>
-                    <v-btn text v-on="on" min-width="250" min-height="250" rounded>
-                        <v-card max-width="250" max-height="250" class="text-center">
-                            <v-img :src="'http://localhost:63085/api/Images/' + imageId" class="align-center" width="100%" height="100%"></v-img>
-                        </v-card>
-                    </v-btn>
-                </v-col>
-            </v-row>
+            <v-btn text v-on="on" min-width="250" min-height="250" rounded>
+                <v-card max-width="250" max-height="250" class="text-center">
+                    <v-img :src="'http://localhost:63085/api/Images/' + imageId" class="align-center" width="100%" height="100%"></v-img>
+                </v-card>
+            </v-btn>
         </template>
         <v-container fluid fill-height @click="close" class="popup">
 
             <v-row align="center" justify="center">
-                <v-col cols="10">
+                <v-col cols="8">
                     <v-card flat class="main-image">
                         <v-img :src="imgUrl"  alt="align-center" width="66%" height="100%" @click.stop="next" ></v-img>
                     </v-card>
                 </v-col>
-                <v-col cols="2">
+                <v-col cols="4">
                     <v-card flat tile >
                         <v-card-title>Description: </v-card-title>
                         <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
@@ -56,6 +52,8 @@
 </template>
 
 <script>
+import { mapGetters} from 'vuex'
+
 export default {
     data(){
         return{
@@ -122,13 +120,13 @@ export default {
         }
     },
     computed:{
+        ...mapGetters([
+            'isLoggedIn'
+        ]),
         imgUrl(){
             const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
 
             return imgSource
-        },
-        isLoggedIn(){
-            return this.$cookies.isKey('token') !== null ? true : false;
         }
     }
 }
@@ -136,10 +134,12 @@ export default {
 
 <style scoped>
     .popup{
+        position: relative;
         background-color: rgba(0, 0, 0, 0.6);
-        display: inline-flex;
+        display: flex;
         overflow: hidden;
-        height: 100vh;
+        align-items: flex-start;
+        min-height: 100%;
     }
 
     .thumb{
@@ -166,6 +166,8 @@ export default {
     .main-image{
         background-color: transparent;
         margin-left: 20%;
+        display: flex;
+        max-width: 70%;
     }
 
     .btn-fix:focus::before {
