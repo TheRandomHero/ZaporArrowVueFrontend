@@ -17,7 +17,7 @@
     </v-container>
             <!-- <v-row class="mx-5">
                 <v-col v-for="(arrId, imgId) in ids" :key="imgId" class="col-lg-4 col-md-6 col-sm-8">
-                    
+
                 </v-col>
             </v-row> -->
 </template>
@@ -60,7 +60,6 @@ export default {
 <style scoped>
     .gallery {
         position: relative;
-        background-image: url('../assets/mainbg.png');
         width: 100%;
         height: auto;
         padding-top: 20%;
@@ -71,7 +70,7 @@ export default {
     .main-title{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
     }
-    
+
     .container{
     padding: 0px
     }

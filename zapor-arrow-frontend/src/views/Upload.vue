@@ -4,7 +4,6 @@
         <v-row>
             <v-col class="col-4 offset-4">
             <v-form>
-                
                 <v-textarea
                 v-model="description"
                 label="Description"
