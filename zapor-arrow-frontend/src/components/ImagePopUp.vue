@@ -11,13 +11,14 @@
                 </v-col>
             </v-row>
         </template>
-        <v-container fluid @click="close" class="popup">
+        <v-container fluid fill-height @click="close" class="popup">
             
-            <v-row align-content="start" justify="center">
-                <v-col cols="8">
-                    <v-img :src="imgUrl"  alt="align-center" width="60%" height="100%" @click.stop="next" ></v-img>
+            <v-row align="center" justify="center">
+                <v-col cols="10">
+                    <v-card flat class="main-image">
+                        <v-img :src="imgUrl"  alt="align-center" width="66%" height="100%" @click.stop="next" ></v-img>
+                    </v-card>
                 </v-col>
-                <v-col cols="4">
                 <v-col cols="2">
                     <v-card flat tile >
                         <v-card-title>Description: </v-card-title>
@@ -25,36 +26,30 @@
                 </v-card>
                 </v-col>
             </v-row>
-            <v-row justify="center">
-                <v-col class="image-container" cols="8" offset="2">
-                    <v-row >
-                        <v-col v-for="(id, i) in imageIdsForArrow" :key="i" cols="4">
-                            <v-card flat style="background-color:transparent"> 
-                                <v-row>
-                                    <v-btn v-if="isLoggedIn"
-                                    color="red"
-                                    class="btn-fix"
-                                    fab
-                                    @click.stop="deleteImage(id)">
-                                        <v-icon >fas fa-trash-alt</v-icon>
-                                    </v-btn>
-                                    
-                                    <v-spacer></v-spacer>
-                                    <v-btn v-if="isLoggedIn"
-                                    fab class="btn-fix">
-                                        <v-icon>fas fa-edit</v-icon>
-                                    </v-btn>
-                                </v-row>
-                                <v-img :src="'http://localhost:63085/api/Images/' + id"
-                                class="img-thumbs"
-                                :class="{'img-thumbs--active' : i === imgIndex}" 
-                                alt="align-center" width="100%" height="100%"  
-                                @click.stop="changeMainImage(i)">
-                                </v-img>
-                            </v-card>
-                        </v-col>
+            <v-row align="end" justify="center">
+                <v-card v-for="(id, i) in imageIdsForArrow" :key="i" 
+                    flat class="img-thumbs"
+                    :class="{'img-thumbs--active' : i === imgIndex}" > 
+                    <v-row>
+                        <v-btn v-if="isLoggedIn"
+                        color="red"
+                        class="btn-fix"
+                        fab
+                        @click.stop="deleteImage(id)">
+                            <v-icon >fas fa-trash-alt</v-icon>
+                        </v-btn>
+                        
+                        <v-spacer></v-spacer>
+                        <v-btn v-if="isLoggedIn"
+                        fab class="btn-fix">
+                            <v-icon>fas fa-edit</v-icon>
+                        </v-btn>
                     </v-row>
-                </v-col>
+                    <v-img :src="'http://localhost:63085/api/Images/' + id"
+                    alt="align-center"  
+                    @click.stop="changeMainImage(i)">
+                    </v-img>
+                </v-card>
             </v-row>
         </v-container>
     </v-dialog>
@@ -145,6 +140,9 @@ export default {
         background-color: rgba(0, 0, 0, 0.6);
 <<<<<<< Updated upstream
         display: inline-flex;
+=======
+        display: flex;
+>>>>>>> Stashed changes
         overflow: hidden;
         height: 100vh;
     }
@@ -153,8 +151,9 @@ export default {
         background-color: black;
     }
     .img-thumbs{
-        width: 100px;
-        height: 100px;
+        background-color: transparent;
+        width: 150px;
+        height: 100%;
         object-fit: cover;
         float: none;
         cursor: pointer;
@@ -164,10 +163,16 @@ export default {
     .img-thumbs--active{
         opacity: 1;
     }
+<<<<<<< Updated upstream
     .image-container{
         width: 100%;
         overflow-x: auto;
         display: inline-block;
+=======
+    .main-image{
+        background-color: transparent;
+        margin-left: 20%;
+>>>>>>> Stashed changes
     }
 
     .btn-fix:focus::before { 
