@@ -6,7 +6,7 @@
         <v-row >
          <app-nav-bar></app-nav-bar>
             <v-col class="col-lg-8 offset-lg-2">
-                <div class="gallery">
+                <div>
                     <div class="gallery-panel"
                     v-for="(arrId, imgId) in ids" :key="imgId">
                         <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
@@ -58,16 +58,16 @@ export default {
     }
 </script>
 <style scoped>
-    .gaallery {
-            position: relative;
-            background-image: url('../assets/mainbg.png');
-            width: 100%;
-            height: auto;
-            padding-top: 20%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+    .gallery {
+        position: relative;
+        background-image: url('../assets/mainbg.png');
+        width: 100%;
+        height: auto;
+        padding-top: 20%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     .main-title{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
     }
@@ -81,19 +81,5 @@ export default {
         -webkit-filter: blur(6px);
     }
 
-    .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-    grid-gap: 1rem;
-    max-width: 80rem;
-    margin: 5rem auto;
-    padding: 0 5rem;
-    }
-    .gallery-panel img {
-        width: 100%;
-        height: 22vw;
-        object-fit: cover;
-        border-radius: 0.75rem;
-    }
 
 </style>
