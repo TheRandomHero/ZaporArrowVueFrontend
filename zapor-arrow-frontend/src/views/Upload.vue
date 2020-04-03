@@ -4,10 +4,6 @@
         <v-row>
             <v-col class="col-4 offset-4">
             <v-form>
-<<<<<<< Updated upstream
-                
-=======
->>>>>>> Stashed changes
                 <v-textarea
                 v-model="description"
                 label="Description"

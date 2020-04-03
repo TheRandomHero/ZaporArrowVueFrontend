@@ -138,11 +138,7 @@ export default {
 <style scoped>
     .popup{
         background-color: rgba(0, 0, 0, 0.6);
-<<<<<<< Updated upstream
         display: inline-flex;
-=======
-        display: flex;
->>>>>>> Stashed changes
         overflow: hidden;
         height: 100vh;
     }
@@ -163,16 +159,14 @@ export default {
     .img-thumbs--active{
         opacity: 1;
     }
-<<<<<<< Updated upstream
     .image-container{
         width: 100%;
         overflow-x: auto;
         display: inline-block;
-=======
+    }
     .main-image{
         background-color: transparent;
         margin-left: 20%;
->>>>>>> Stashed changes
     }
 
     .btn-fix:focus::before { 
