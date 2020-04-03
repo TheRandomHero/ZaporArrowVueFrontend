@@ -79,7 +79,7 @@ export default {
 
     mounted: function(){
         this.$nextTick(function(){
-            this.$http.get('http://localhost:63085/api/Arrow/' + this.arrowId).
+            this.$http.get('http://localhost:63085/api/Arrow/arrowDescription/' + this.arrowId).
                 then(response => {
                     return response.json();
                 })
@@ -133,7 +133,7 @@ export default {
             return imgSource
         },
         isLoggedIn(){
-            return this.$cookie.get('token') !== null ? true : false;
+            return this.$cookies.get('token') !== null ? true : false;
         }
     }
 }
