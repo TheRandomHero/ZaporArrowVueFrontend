@@ -18,6 +18,7 @@
                     <v-img :src="imgUrl"  alt="align-center" width="60%" height="100%" @click.stop="next" ></v-img>
                 </v-col>
                 <v-col cols="4">
+                <v-col cols="2">
                     <v-card flat tile >
                         <v-card-title>Description: </v-card-title>
                         <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
@@ -142,6 +143,7 @@ export default {
 <style scoped>
     .popup{
         background-color: rgba(0, 0, 0, 0.6);
+<<<<<<< Updated upstream
         display: inline-flex;
         overflow: hidden;
         height: 100vh;
