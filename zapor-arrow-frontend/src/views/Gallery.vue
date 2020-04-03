@@ -4,13 +4,15 @@
             <app-nav-bar :bg="image"/>
         </v-row>
         <app-nav-bar></app-nav-bar>
-        <v-row class="gallery" >
-            <div v-for="(arrId, imgId) in ids" :key="imgId" class="gallery-content">
-                <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
-            </div>
+        <v-row >
+            <v-col cols="10" offset="1"  class="gallery">
+                <div v-for="(arrId, imgId) in ids" :key="imgId" class="gallery-content">
+                    <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
+                </div>
+
+            </v-col>
         </v-row>
     </v-container>
-            
 </template>
 
 
@@ -51,10 +53,9 @@ export default {
 <style scoped>
     .gallery {
         display: flex;
-        justify-content: flex-start;
-        min-width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
     }
-
     .main-title{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
     }
