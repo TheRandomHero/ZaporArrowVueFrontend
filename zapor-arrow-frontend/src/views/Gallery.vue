@@ -1,6 +1,6 @@
 <template>
     <v-container fluid :class="{myBlurEffect: isActive}">
-        <v-row width="200px">
+        <v-row width="100%">
             <app-nav-bar :bg="image"/>
         </v-row>
         <app-nav-bar></app-nav-bar>
@@ -60,6 +60,9 @@ export default {
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
     }
 
+    .container{
+        padding: 0px;
+    }
     .myBlurEffect{
         filter: blur(6px);
         -webkit-filter: blur(6px);
