@@ -85,7 +85,6 @@ export default {
                     return response.json();
                 })
                 .then(data => {
-                    this.imageIdsForArrow.push(this.imageId)
                     for(let id in data){
                         this.imageIdsForArrow.push(data[id]);
                     }

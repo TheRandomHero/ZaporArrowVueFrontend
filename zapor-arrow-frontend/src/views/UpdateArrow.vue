@@ -1,12 +1,11 @@
 <template>
     <v-container>
-        <app-nav-bar :bg="image"></app-nav-bar>
+        <app-nav-bar></app-nav-bar>
         <v-row >
-            <v-col cols="6">
-                <v-card>
-                    <img :src="'http://localhost:63085/api/Images/' + $route.params.id "  alt="align-center" width="100%" height="100%">
-                </v-card>
-
+            <v-col cols="6" class="image-container">
+                <div v-for="(imgId) in imagesIdsForArrow" :key="imgId" class="gallery-content">
+                   <v-img :src="'http://localhost:63085/api/Images/' + imgId"></v-img>
+                </div>
             </v-col>
             <v-col cols="6">
                 <v-card>
@@ -19,7 +18,6 @@
 
 <script>
 import NavBar from './../components/NavBar';
-import background from './../assets/bg1.jpg'
 
 
     export default {
@@ -28,17 +26,28 @@ import background from './../assets/bg1.jpg'
         data() {
             return {
                 arrow:null,
-                image:background
+                imagesIdsForArrow:[],
+                
             }
         },
         created(){
-            this.$http.get('http://localhost:63085/api/Images/arrow/' + this.id)
+            this.$http.get('http://localhost:63085/api/Arrow/arrowDescription/' + this.id)
             .then(response => {
                 return response.json();
             })
             .then(data =>{
                 this.arrow = data;
             });
+
+            this.$http.get('http://localhost:63085/api/Images/getall/' + this.id)
+                .then(response =>{
+                    return response.json();
+                })
+                .then(data =>{
+                    for(let id in data){
+                        this.imagesIdsForArrow.push(data[id])
+                    }
+                })
         },
         components:{
             appNavBar: NavBar,
@@ -47,5 +56,9 @@ import background from './../assets/bg1.jpg'
 </script>
 
 <style scoped>
-
+    .image-container{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 </style>
