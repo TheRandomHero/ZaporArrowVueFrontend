@@ -6,7 +6,7 @@
         <app-nav-bar></app-nav-bar>
         <v-row >
             <v-col cols="10" offset="1"  class="gallery">
-                <div v-for="(arrId, imgId) in ids" :key="imgId" class="gallery-content">
+                <div v-for="(arrId, imgId) in ids" :key="imgId">
                     <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
                 </div>
 

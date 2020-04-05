@@ -27,19 +27,31 @@
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-row>
-                        <v-btn v-if="isLoggedIn"
-                        color="red"
+                        <v-fab-transition>
+                        <router-link
+                        :to="{name: 'arrowPage', params:{ id: arrowId}}"
+                        tag="button"
                         class="btn-fix"
+                        absolute
+                        top
+                        right
                         fab
-                        @click.stop="deleteImage(id)">
-                            <v-icon >fas fa-trash-alt</v-icon>
-                        </v-btn>
-
-                        <v-spacer></v-spacer>
-                        <v-btn v-if="isLoggedIn"
-                        fab class="btn-fix">
+                        @click.stop="">
                             <v-icon>fas fa-edit</v-icon>
+                        </router-link>
+                    </v-fab-transition>
+                    <v-fab-transition>
+                        <v-btn
+                        class="btn-fix"
+                        color="red"
+                        absolute
+                        top
+                        left
+                        fab
+                        @click.stop="deleteImage(imgId)">
+                            <v-icon>fas fa-trash-alt</v-icon>
                         </v-btn>
+                    </v-fab-transition>
                     </v-row>
                     <v-img :src="'http://localhost:63085/api/Images/' + id"
                     alt="align-center"
@@ -116,7 +128,7 @@ export default {
         },
         deleteImage(imageId){
             console.log(imageId)
-        }
+        },
     },
     computed:{
         ...mapGetters([

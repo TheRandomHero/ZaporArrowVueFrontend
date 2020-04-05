@@ -2,15 +2,34 @@
     <v-container>
         <app-nav-bar></app-nav-bar>
         <v-row >
-            <v-col cols="6" class="image-container">
-                <div v-for="(imgId) in imagesIdsForArrow" :key="imgId" class="gallery-content">
-                   <v-img :src="'http://localhost:63085/api/Images/' + imgId"></v-img>
+            <v-col cols="8" class="gallery-container">
+                <div v-for="(imgId) in imagesIdsForArrow" :key="imgId"  class="image-container">
+                    <v-fab-transition>
+                        <v-btn
+                        class="btn-fix"
+                        color="red"
+                        absolute
+                        top
+                        right
+                        fab
+                        @click.stop="deleteImage(imgId)">
+                            <v-icon>fas fa-trash-alt</v-icon>
+                        </v-btn>
+                    </v-fab-transition>
+                   <v-img :src="'http://localhost:63085/api/Images/' + imgId" class="gallery-image"></v-img>
                 </div>
             </v-col>
-            <v-col cols="6">
-                <v-card>
-                    <p v-if="arrow">{{arrow.description}}</p>
-                </v-card>
+            <v-col cols="4">
+                <v-sheet elevation="12">
+                    <v-textarea 
+                    v-model="arrow"
+                    label="Arrow Description"
+                    no-resize
+                    rounded
+                    clearable
+                    clear-icon="fas fa-times-circle"></v-textarea>
+                    <v-btn class="primary">Edit description</v-btn>
+                </v-sheet>
             </v-col>
         </v-row>
     </v-container>
@@ -36,7 +55,7 @@ import NavBar from './../components/NavBar';
                 return response.json();
             })
             .then(data =>{
-                this.arrow = data;
+                this.arrow = data['description'];
             });
 
             this.$http.get('http://localhost:63085/api/Images/getall/' + this.id)
@@ -49,6 +68,20 @@ import NavBar from './../components/NavBar';
                     }
                 })
         },
+        methods:{
+            deleteImage(deletingId){
+                this.$http.delete('http://localhost:63085/api/Images/',{
+                    headers:{
+                        'Authorization': 'Bearer ' + this.$cookies.get('token')
+                    },
+                    body:{'imageId':deletingId}
+                })
+                .then(
+                    console.log(this.$cookies.get('token'))
+                
+                )
+            }
+        },
         components:{
             appNavBar: NavBar,
         }
@@ -56,9 +89,24 @@ import NavBar from './../components/NavBar';
 </script>
 
 <style scoped>
-    .image-container{
+    .gallery-container{
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
     }
+    .image-container{
+        display: flex;
+        position: relative;
+        max-width: 250px;
+
+    }
+    .gallery-image{
+        width: 100%;
+        z-index: 1;
+    }
+    .btn-fix:focus::before {
+        z-index: 15;
+        opacity: 0 !important;
+    }
+    
 </style>
