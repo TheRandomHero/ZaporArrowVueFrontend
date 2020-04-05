@@ -32,6 +32,24 @@
                 </v-sheet>
             </v-col>
         </v-row>
+        <!-- upload another image to arrow -->
+        <v-row> 
+            <v-col>
+                <input type="file" 
+                        style="display: none" 
+                        ref="fileInput" 
+                        accept="image/*"
+                        @change="onFileSelected">
+                <v-btn raised class="primary" @click="$refs.fileInput.click()" >Select file</v-btn>
+                <v-btn raised class="primary" @click="onUpload">Upload</v-btn>
+            </v-col>
+        </v-row>
+
+        <v-row >
+            <v-col>
+                <img :src="imageUrl" height="160">
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -46,6 +64,8 @@ import NavBar from './../components/NavBar';
             return {
                 arrow:null,
                 imagesIdsForArrow:[],
+                selectedFile: null,
+                imageUrl: '',
                 
             }
         },
@@ -80,6 +100,26 @@ import NavBar from './../components/NavBar';
                     console.log(this.$cookies.get('token'))
                 
                 )
+            },
+            onFileSelected(event){
+            this.selectedFile = event.target.files[0]
+
+            const fileReader = new FileReader()
+            fileReader.addEventListener('load', () => {
+                this.imageUrl = fileReader.result 
+            })
+            fileReader.readAsDataURL(this.selectedFile)
+            },
+            onUpload(){
+                const fd = new FormData()
+                fd.append('file', this.selectedFile)
+                    this.$http.post('http://localhost:63085/api/Images/' + this.$route.params.id, fd,{
+                        headers:{
+                            Authorization : 'Bearer ' + this.$cookies.get('token')
+                        },
+                    })
+                    .then(console.log(this.$cookies.get('token'))
+                    )            
             }
         },
         components:{

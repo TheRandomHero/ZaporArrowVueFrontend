@@ -7,10 +7,22 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state:{
         jwt:null,
+        imageIdsForArrow:[],
+
     },
     getters:{
-        isLoggedIn: function (){
+        isLoggedIn(){
             return cookies.isKey('token');
+        },
+        imageIdsForSpecArrow(){
+
         }
+
     },
+    actions:{
+        
+    },
+    mutations:{
+        
+    }
 })

@@ -28,17 +28,15 @@
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-row>
                         <v-fab-transition>
-                        <router-link
-                        :to="{name: 'arrowPage', params:{ id: arrowId}}"
-                        tag="button"
+                        <v-btn
                         class="btn-fix"
                         absolute
                         top
                         right
                         fab
-                        @click.stop="">
+                        @click.stop="$router.push({name:'arrowPage', params: {id: arrowId}})">
                             <v-icon>fas fa-edit</v-icon>
-                        </router-link>
+                        </v-btn>
                     </v-fab-transition>
                     <v-fab-transition>
                         <v-btn
