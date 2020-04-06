@@ -1,9 +1,12 @@
 <template>
     <v-container>
         <app-nav-bar></app-nav-bar>
+        <v-btn color="error"
+                @click="deleteArrow"
+        >Delete Arrow</v-btn>
         <v-row >
             <v-col cols="8" class="gallery-container">
-                <div v-for="(imgId) in imagesIdsForArrow" :key="imgId"  class="image-container">
+                <div v-for="imgId in images" :key="imgId"  class="image-container">
                     <v-fab-transition>
                         <v-btn
                         class="btn-fix"
@@ -55,21 +58,20 @@
 
 <script>
 import NavBar from './../components/NavBar';
-
-
+import { mapGetters } from 'vuex'
     export default {
         props: ['id'],
 
         data() {
             return {
                 arrow:null,
-                imagesIdsForArrow:[],
                 selectedFile: null,
                 imageUrl: '',
+                images : this.imageIdsForSpecArrow,
                 
             }
         },
-        created(){
+        mounted(){
             this.$http.get('http://localhost:63085/api/Arrow/arrowDescription/' + this.id)
             .then(response => {
                 return response.json();
@@ -77,29 +79,33 @@ import NavBar from './../components/NavBar';
             .then(data =>{
                 this.arrow = data['description'];
             });
-
-            this.$http.get('http://localhost:63085/api/Images/getall/' + this.id)
-                .then(response =>{
-                    return response.json();
-                })
-                .then(data =>{
-                    for(let id in data){
-                        this.imagesIdsForArrow.push(data[id])
-                    }
-                })
+            this.$store.dispatch("getImageIdsForArrow", this.id)
+           
+        },
+        computed:{
+            ...mapGetters([
+                'imageIdsForSpecArrow'
+            ])
         },
         methods:{
+            deleteArrow(){
+                this.$http.delete('http://localhost:63085/api/Arrow/',{
+                    headers:{
+                        'Content-type' : 'application/json',
+                        'Authorization' : 'Bearer ' + this.$cookies.get('token')
+                    },
+                    params:{"arrowId": this.$route.params.id}
+                })
+                .then(this.$router.push({name:'gallery'}))
+            },
             deleteImage(deletingId){
                 this.$http.delete('http://localhost:63085/api/Images/',{
                     headers:{
+                        'Content-type' : 'application/json',
                         'Authorization': 'Bearer ' + this.$cookies.get('token')
                     },
-                    body:{'imageId':deletingId}
+                    params:{"imageId" : deletingId}
                 })
-                .then(
-                    console.log(this.$cookies.get('token'))
-                
-                )
             },
             onFileSelected(event){
             this.selectedFile = event.target.files[0]
@@ -110,6 +116,7 @@ import NavBar from './../components/NavBar';
             })
             fileReader.readAsDataURL(this.selectedFile)
             },
+            
             onUpload(){
                 const fd = new FormData()
                 fd.append('file', this.selectedFile)
@@ -118,8 +125,7 @@ import NavBar from './../components/NavBar';
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },
                     })
-                    .then(console.log(this.$cookies.get('token'))
-                    )            
+                    .then(console.log(this.images))
             }
         },
         components:{
