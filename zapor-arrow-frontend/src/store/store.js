@@ -20,18 +20,48 @@ export const store = new Vuex.Store({
     },
     actions:{
         getImageIdsForArrow( {commit}, id){
-            return Vue.http.get('http://localhost:63085/api/Images/getall/' + id)
-                .then(response =>{
-                    commit('SET_IMAGEIDSFORARROW', response.data)
-                })
-                .catch(error =>{
-                    console.log(error);
-                });
+            return new Promise((resolve, reject) =>{
+                Vue.http.get('http://localhost:63085/api/Images/getall/' + id)
+                    .then(response =>{
+                        resolve(
+                            commit('SET_IMAGEIDSFORARROW', response.data)
+                        )
+                    })
+                    .catch(error =>{
+                        reject(error);
+                    });
+                
+            }) 
+        },
+        updateImages({commit}, payload){
+            console.log(payload)
+            commit('SET_IMAGEIDSFORARROW', payload)
+        },
+        
+        deleteImage({commit}, id){
+            Vue.http.delete('http://localhost:63085/api/Images/',{
+                headers:{
+                    'Content-type' : 'application/json',
+                    'Authorization': 'Bearer ' + cookies.get('token')
+                },
+                params:{"imageId" : id}
+            })
+            .then(
+                commit('DELETE_IMAGE', id))
         }
     },
     mutations:{
-        SET_IMAGEIDSFORARROW (state, ids){
-            state.imageIdsForArrow = ids
+        DELETE_IMAGE (state, id){
+            function findIndex(object, value){
+                return Object.keys(object).find(key=> object[key] === value)
             }
-        }
+            var index = findIndex(state.imageIdsForArrow, id);
+            state.imageIdsForArrow.splice(index, 1)
+        },
+
+        SET_IMAGEIDSFORARROW (state, payload){
+            state.imageIdsForArrow = payload
+            console.log(state.imageIdsForArrow)
+            }
+        },
 })

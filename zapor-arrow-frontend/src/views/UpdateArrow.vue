@@ -6,7 +6,7 @@
         >Delete Arrow</v-btn>
         <v-row >
             <v-col cols="8" class="gallery-container">
-                <div v-for="imgId in images" :key="imgId"  class="image-container">
+                <div v-for="imgId in imageIdsForSpecArrow" :key="imgId"  class="image-container">
                     <v-fab-transition>
                         <v-btn
                         class="btn-fix"
@@ -67,7 +67,6 @@ import { mapGetters } from 'vuex'
                 arrow:null,
                 selectedFile: null,
                 imageUrl: '',
-                images : this.imageIdsForSpecArrow,
                 
             }
         },
@@ -98,14 +97,10 @@ import { mapGetters } from 'vuex'
                 })
                 .then(this.$router.push({name:'gallery'}))
             },
+
             deleteImage(deletingId){
-                this.$http.delete('http://localhost:63085/api/Images/',{
-                    headers:{
-                        'Content-type' : 'application/json',
-                        'Authorization': 'Bearer ' + this.$cookies.get('token')
-                    },
-                    params:{"imageId" : deletingId}
-                })
+               this.$store.dispatch("deleteImage", deletingId)
+                
             },
             onFileSelected(event){
             this.selectedFile = event.target.files[0]
@@ -125,7 +120,12 @@ import { mapGetters } from 'vuex'
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },
                     })
-                    .then(console.log(this.images))
+                    .then(response=>{
+                        this.$store.dispatch("updateImages", response.data),
+                        this.imageUrl = "",
+                        this.selectedFile = null;
+
+                    })
             }
         },
         components:{
