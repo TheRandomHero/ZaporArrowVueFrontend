@@ -27,8 +27,8 @@
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-row>
-                        <v-fab-transition>
-                        <v-btn
+                        <v-fab-transition >
+                        <v-btn v-if="isLoggedIn"
                         class="btn-fix"
                         absolute
                         top
@@ -36,18 +36,6 @@
                         fab
                         @click.stop="$router.push({name:'arrowPage', params: {id: arrowId}})">
                             <v-icon>fas fa-edit</v-icon>
-                        </v-btn>
-                    </v-fab-transition>
-                    <v-fab-transition>
-                        <v-btn
-                        class="btn-fix"
-                        color="red"
-                        absolute
-                        top
-                        left
-                        fab
-                        @click.stop="deleteImage(imgId)">
-                            <v-icon>fas fa-trash-alt</v-icon>
                         </v-btn>
                     </v-fab-transition>
                     </v-row>

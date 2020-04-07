@@ -31,7 +31,7 @@
                     rounded
                     clearable
                     clear-icon="fas fa-times-circle"></v-textarea>
-                    <v-btn class="primary">Edit description</v-btn>
+                    <v-btn class="primary" @click="editDescription">Edit description</v-btn>
                 </v-sheet>
             </v-col>
         </v-row>
@@ -64,7 +64,7 @@ import { mapGetters } from 'vuex'
 
         data() {
             return {
-                arrow:null,
+                arrow:"",
                 selectedFile: null,
                 imageUrl: '',
                 
@@ -115,7 +115,7 @@ import { mapGetters } from 'vuex'
             onUpload(){
                 const fd = new FormData()
                 fd.append('file', this.selectedFile)
-                    this.$http.post('http://localhost:63085/api/Images/' + this.$route.params.id, fd,{
+                    this.$http.post('http://localhost:63085/api/Images/' + this.id, fd,{
                         headers:{
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },
@@ -126,6 +126,15 @@ import { mapGetters } from 'vuex'
                         this.selectedFile = null;
 
                     })
+            },
+            editDescription(){
+                const fd = new FormData();
+                fd.append('Description', this.arrow)
+                this.$http.put('http://localhost:63085/api/Arrow/' + this.id, fd,{
+                    headers:{
+                            Authorization : 'Bearer ' + this.$cookies.get('token')
+                        },
+                })
             }
         },
         components:{
