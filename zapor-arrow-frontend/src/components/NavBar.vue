@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid fill-height>
+    <v-container fluid>
 
         <v-img :src="bg">
 
@@ -69,7 +69,6 @@
 </script>
 
 <style scoped>
-@import url("http://oldhungarian.eu/stylesheets/oldhungarian.css");
 
     .v-btn.v-size--default{
         font-family: 'Web_OldHungarian';
@@ -82,9 +81,7 @@
     }
 
     .logo-btn{
-        word-wrap: break-word;
-        background-size: 110%;
+        background-size: 100%;
         width: 1em;
-        max-width: 100%;
     }
 </style>
