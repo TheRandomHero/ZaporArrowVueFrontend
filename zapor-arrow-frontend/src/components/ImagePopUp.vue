@@ -14,12 +14,20 @@
 
             <v-row align="center" justify="center">
                 <v-col cols="8">
-                    <v-card flat class="main-image">
-                        <v-img :src="imgUrl"  alt="align-center" width="66%" height="100%" @click.stop="next" ></v-img>
+                    <v-card flat class="main-image-card">
+                        <transition name="fade">
+                        <v-img :src="imgUrl"
+                            :key="imgIndex"
+                            alt="align-center"
+                            width="66%" 
+                            height="100%" 
+                            @click.stop="next"
+                         ></v-img>
+                        </transition>
                     </v-card>
                 </v-col>
                 <v-col cols="4">
-                    <v-card flat tile >
+                    <v-card flat tile class="description-card">
                         <v-card-title>Description: </v-card-title>
                         <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
                 </v-card>
@@ -163,7 +171,7 @@ export default {
         overflow-x: auto;
         display: inline-block;
     }
-    .main-image{
+    .main-image-card{
         background-color: transparent;
         margin-left: 20%;
         display: flex;
@@ -173,5 +181,19 @@ export default {
     .btn-fix:focus::before {
         z-index: 15;
         opacity: 0 !important;
+    }
+    .description-card{
+        position: fixed;
+    }
+    .fade-enter-active {
+    transition:  all 1s ease;
+    }
+
+    .fade-enter-to {
+    opacity: 1;
+    }
+
+    .fade-enter {
+    opacity: 0;
     }
 </style>

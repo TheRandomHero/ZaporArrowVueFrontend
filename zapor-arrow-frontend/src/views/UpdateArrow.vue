@@ -1,11 +1,10 @@
 <template>
-    <v-container>
-        <app-nav-bar></app-nav-bar>
-        <v-btn color="error"
-                @click="deleteArrow"
-        >Delete Arrow</v-btn>
+    <v-container fluid>
+        <v-row width="100%">
+            <app-nav-bar :bg="image"/>
+        </v-row>
         <v-row >
-            <v-col cols="8" class="gallery-container">
+            <v-col class="gallery-container lg-cols-6">
                 <div v-for="imgId in imageIdsForSpecArrow" :key="imgId"  class="image-container">
                     <v-fab-transition>
                         <v-btn
@@ -22,8 +21,8 @@
                    <v-img :src="'http://localhost:63085/api/Images/' + imgId" class="gallery-image"></v-img>
                 </div>
             </v-col>
-            <v-col cols="4">
-                <v-sheet elevation="12">
+            <v-col class="lg-cols-6">
+                <v-sheet elevation="12" class="description-textarea">
                     <v-textarea 
                     v-model="arrow"
                     label="Arrow Description"
@@ -37,20 +36,24 @@
         </v-row>
         <!-- upload another image to arrow -->
         <v-row> 
-            <v-col>
+            <v-col class="ml-8">
                 <input type="file" 
                         style="display: none" 
                         ref="fileInput" 
                         accept="image/*"
                         @change="onFileSelected">
-                <v-btn raised class="primary" @click="$refs.fileInput.click()" >Select file</v-btn>
+                <v-btn raised class="primary ma-2" @click="$refs.fileInput.click()" >Select file</v-btn>
                 <v-btn raised class="primary" @click="onUpload">Upload</v-btn>
+                
             </v-col>
         </v-row>
 
-        <v-row >
-            <v-col>
-                <img :src="imageUrl" height="160">
+        <v-row justify="center" align-content="center">
+            <v-col class="ml-5">
+                <v-img :src="imageUrl" max-height="400" max-width="400" class="ma-5"> </v-img>
+                <v-btn color="error"
+                @click="deleteArrow"
+                >Delete Arrow</v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -58,6 +61,7 @@
 
 <script>
 import NavBar from './../components/NavBar';
+import background from './../assets/gallery-bg.jpg'
 import { mapGetters } from 'vuex'
     export default {
         props: ['id'],
@@ -67,6 +71,7 @@ import { mapGetters } from 'vuex'
                 arrow:"",
                 selectedFile: null,
                 imageUrl: '',
+                image:background,
                 
             }
         },
@@ -88,18 +93,20 @@ import { mapGetters } from 'vuex'
         },
         methods:{
             deleteArrow(){
-                this.$http.delete('http://localhost:63085/api/Arrow/',{
-                    headers:{
-                        'Content-type' : 'application/json',
-                        'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                    },
-                    params:{"arrowId": this.$route.params.id}
-                })
-                .then(this.$router.push({name:'gallery'}))
+                if(confirm('Are you sure want to delete this Arrow?'))
+                    this.$http.delete('http://localhost:63085/api/Arrow/',{
+                        headers:{
+                            'Content-type' : 'application/json',
+                            'Authorization' : 'Bearer ' + this.$cookies.get('token')
+                        },
+                        params:{"arrowId": this.$route.params.id}
+                    })
+                    .then(this.$router.push({name:'gallery'}))
             },
 
             deleteImage(deletingId){
-               this.$store.dispatch("deleteImage", deletingId)
+                if(confirm('Are you sure want to delete this Image?'))
+                    this.$store.dispatch("deleteImage", deletingId)
                 
             },
             onFileSelected(event){
@@ -144,6 +151,9 @@ import { mapGetters } from 'vuex'
 </script>
 
 <style scoped>
+    .container{
+        padding: 0;
+    }
     .gallery-container{
         display: flex;
         justify-content: center;
@@ -153,6 +163,7 @@ import { mapGetters } from 'vuex'
         display: flex;
         position: relative;
         max-width: 250px;
+        margin: 10px;
 
     }
     .gallery-image{
@@ -162,6 +173,9 @@ import { mapGetters } from 'vuex'
     .btn-fix:focus::before {
         z-index: 15;
         opacity: 0 !important;
+    }
+    .description-textarea{
+        margin-right: 50px;
     }
     
 </style>
