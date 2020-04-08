@@ -51,7 +51,7 @@
                 navItems: [
                     {icon: 'fas fa-chess-rook', text: 'Home', route:'/'},
                     {icon: 'far fa-image', text: 'Gallery', route:'/gallery'},
-                    {icon: 'far fa-id-badge', text: 'About', route:'/about'}
+                    {icon: 'far fa-id-badge', text: 'About Me', route:'/aboutMe'}
                 ],
                 image : '',
             }

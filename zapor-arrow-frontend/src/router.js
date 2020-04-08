@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
+import AboutMe from './views/AboutMe'
 import UpdateArrow from './views/UpdateArrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
@@ -33,6 +34,12 @@ const  router = new Router({
       meta:{
         requiresAuth: true,
       }
+    },
+    {
+      path:'/aboutMe',
+      name:'aboutMe',
+      component:AboutMe,
+
     },
     {
       path:'/upload',
