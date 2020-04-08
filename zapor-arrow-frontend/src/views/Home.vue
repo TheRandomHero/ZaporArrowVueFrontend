@@ -14,13 +14,13 @@
                         </v-img>
                     </v-card>
                     <v-card flat :to="'gallery'"  max-width="48%" class="card-picture">
-                        <v-img src="./../assets/background.jpg" width="100%" max-height="400">
-                            <div class="card-text">Gallery</div>
+                        <v-img src="./../assets/equipment.jpg" width="100%" max-height="400">
+                            <div class="card-text">Good To Know</div>
                         </v-img>
                     </v-card>
                     <v-card flat :to="'gallery'"  max-width="48%" class="card-picture">
-                        <v-img src="./../assets/background.jpg" width="100%" max-height="400">
-                            <div class="card-text">Gallery</div>
+                        <v-img src="./../assets/about.jpg" width="100%" max-height="400">
+                            <div class="card-text">About</div>
                         </v-img>
                     </v-card>
                     <v-card flat :to="'about'">
