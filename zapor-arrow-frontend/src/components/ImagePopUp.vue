@@ -82,7 +82,7 @@ export default {
 
     mounted: function(){
         this.$nextTick(function(){
-            this.$http.get('http://localhost:63085/api/Arrow/arrowDescription/' + this.arrowId).
+            this.$http.get(this.baseUrl + '/api/Arrow/arrowDescription/' + this.arrowId).
                 then(response => {
                     return response.json();
                 })
@@ -90,7 +90,7 @@ export default {
                     this.arrow = data;
                 });
             }),
-            this.$http.get('http://localhost:63085/api/Images/getall/' + this.arrowId)
+            this.$http.get(this.baseUrl + '/api/Images/getall/' + this.arrowId)
                 .then(response =>{
                     return response.json();
                 })
@@ -133,7 +133,7 @@ export default {
             'isLoggedIn'
         ]),
         imgUrl(){
-            const imgSource = 'http://localhost:63085/api/Images/' + this.imageIdsForArrow[this.imgIndex]
+            const imgSource = this.baseUrl + '/api/Images/' + this.imageIdsForArrow[this.imgIndex]
 
             return imgSource
         }
