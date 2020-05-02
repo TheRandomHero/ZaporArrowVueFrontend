@@ -8,8 +8,6 @@ public/
 src/_drafts
 package-lock.json
 
-.DS_Store
-/dist
 
 # local env files
 .env.local
