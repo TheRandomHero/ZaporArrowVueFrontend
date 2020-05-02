@@ -28,7 +28,7 @@
                             <v-btn raised class="primary" @click="submit" >Submit</v-btn>
                         </v-col>
                         <v-col>
-                            <v-btn raised class="primary" @click="clear">Clear</v-btn>
+                            <v-btn raised class="primary" @click="clear">Clear fields</v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
