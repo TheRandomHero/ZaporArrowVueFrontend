@@ -3,7 +3,7 @@
         <template v-slot:activator="{ on }">
             <v-btn text v-on="on" min-width="250" min-height="250" rounded>
                 <v-card max-width="250" max-height="250" class="text-center">
-                    <v-img :src="'http://localhost:63085/api/Images/' + imageId" 
+                    <v-img :src="baseUrl+'/api/Images/' + imageId" 
                     class="align-center" 
                     width="100%" 
                     height="100%"></v-img>
@@ -49,7 +49,7 @@
                 <v-card v-for="(id, i) in imageIdsForArrow" :key="i"
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
-                    <v-img :src="'http://localhost:63085/api/Images/' + id"
+                    <v-img :src="baseUrl +'/api/Images/' + id"
                     alt="align-center"
                     @click.stop="changeMainImage(i)">
                     </v-img>
@@ -71,6 +71,8 @@ export default {
             loader: true,
             mainImage:null,
             imageIdsForArrow:[],
+            baseUrl: process.env.VUE_APP_URL,
+
         }
     },
     props:{
