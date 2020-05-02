@@ -6,7 +6,7 @@
         <app-nav-bar></app-nav-bar>
         <v-row >
             <v-col cols="10" offset="1"  class="gallery">
-                <div v-for="(arrId, imgId) in ids" :key="imgId">
+                <div v-for="(arrId, imgId) in getGalleryImagesIds" :key="imgId">
                     <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
                 </div>
 
@@ -20,6 +20,7 @@
 import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
+import { mapGetters} from 'vuex'
 
 export default {
     data() {
@@ -35,18 +36,17 @@ export default {
       ImagePopUp: Popup,
     },
     mounted() {
-        this.$http.get('http://localhost:63085/api/gallery')
-            .then(response => {
-                return response.json();
-            })
-            .then(data =>{
-                    this.ids = data
-            });
+        this.$store.dispatch("getGalleryImages");
         },
     methods:{
         changeBackground(){
             this.isActive = !this.isActive
         }
+    },
+    computed:{
+        ...mapGetters([
+            'getGalleryImagesIds'
+        ])
     }
     }
 </script>

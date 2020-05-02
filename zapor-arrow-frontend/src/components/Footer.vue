@@ -22,7 +22,8 @@
                     {name:'home', icon:'fas fa-chess-rook', route:'/'},
                     {name:'youtube', icon:'fab fa-youtube-square', route:'https://www.youtube.com/channel/UCETkEaD396q_DeMZX41LwWw'},
                     {name:'facebook', icon:'fab fa-facebook-square', route:'https://www.facebook.com/zaporarrow/'},
-                    {name:'email', icon:'fas fa-envelope-square'}
+                    {name:'email', icon:'fas fa-envelope-square'},
+                    {name:'key', icon:'fas fa-key', route:'/login'}
                 ]
             }
         }

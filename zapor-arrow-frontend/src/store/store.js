@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state:{
         jwt:null,
+        ids:null,
         imageIdsForArrow:[],
 
     },
@@ -15,7 +16,10 @@ export const store = new Vuex.Store({
         },
         imageIdsForSpecArrow(state){
             return state.imageIdsForArrow;
-        }
+        },
+        getGalleryImagesIds(state){
+            return state.ids;
+        },
 
     },
     actions:{
@@ -33,8 +37,15 @@ export const store = new Vuex.Store({
                 
             }) 
         },
+        getGalleryImages( { commit } ){
+            Vue.http.get('http://localhost:63085/api/gallery')
+            .then(response => {
+                commit('SET_IMAGESIDSFORGALLERY', response.data)
+            })
+        },
+
+
         updateImages({commit}, payload){
-            console.log(payload)
             commit('SET_IMAGEIDSFORARROW', payload)
         },
         
@@ -61,7 +72,12 @@ export const store = new Vuex.Store({
 
         SET_IMAGEIDSFORARROW (state, payload){
             state.imageIdsForArrow = payload
-            console.log(state.imageIdsForArrow)
+            },
+
+
+        SET_IMAGESIDSFORGALLERY(state, payload){
+            state.ids = payload
             }
         },
+
 })

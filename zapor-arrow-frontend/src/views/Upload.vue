@@ -20,13 +20,13 @@
                         <v-btn raised class="primary" @click="$refs.fileInput.click()" >Select file</v-btn>
                     </v-col>
                     <v-col>
-                        <v-btn raised class="primary" @click="onUpload">Upload</v-btn>
+                        <v-btn raised class="primary" @click="onUpload" :disabled="isSelectedFileEmpty">Upload</v-btn>
                     </v-col>
                 </v-row>
 
                 <v-row >
                     <v-col>
-                        <img :src="imageUrl" height="160">
+                        <img :src="imageUrl" height="350">
                     </v-col>
                 </v-row>
 
@@ -72,6 +72,11 @@ export default {
                         this.$router.push('/arrow/'+response.data)
                     })            
         }
+    },
+    computed:{
+        isSelectedFileEmpty(){
+                return this.selectedFile === null ? true : false;
+            }
     },
     components:{
         appNavBar: NavBar,
