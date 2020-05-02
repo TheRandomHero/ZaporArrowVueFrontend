@@ -13,7 +13,6 @@ Vue.use(Router);
 Vue.use(VueResource);
 
 const  router = new Router({
-  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
