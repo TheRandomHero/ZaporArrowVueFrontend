@@ -9,7 +9,8 @@ src/_drafts
 package-lock.json
 
 .DS_Store
-/dist
+
+.firebase
 
 # local env files
 .env.local

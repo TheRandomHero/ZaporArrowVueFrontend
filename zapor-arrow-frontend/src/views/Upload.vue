@@ -20,13 +20,13 @@
                         <v-btn raised class="primary" @click="$refs.fileInput.click()">Select file</v-btn>
                     </v-col>
                     <v-col>
-                        <v-btn raised class="primary" @click="onUpload" :disabled="isFileSelectedEmpty" >Upload</v-btn>
+                        <v-btn raised class="primary" @click="onUpload" :disabled="isSelectedFileEmpty">Upload</v-btn>
                     </v-col>
                 </v-row>
 
                 <v-row >
                     <v-col>
-                        <img :src="imageUrl" height="250">
+                        <img :src="imageUrl" height="350">
                     </v-col>
                 </v-row>
 
@@ -45,7 +45,8 @@ export default {
         return{
             selectedFile: null,
             imageUrl: '',
-            description:''
+            description:'',
+            baseUrl: process.env.VUE_APP_URL,
 
         }
     },
@@ -63,7 +64,7 @@ export default {
             const fd = new FormData()
             fd.append('Description', this.description)
             fd.append('PhotoFile', this.selectedFile)
-                this.$http.post('http://localhost:63085/api/Arrow', fd,{
+                this.$http.post(this.baseUrl + '/api/Arrow', fd,{
                     headers:{
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },
@@ -72,6 +73,11 @@ export default {
                         this.$router.push('/arrow/'+response.data)
                     })            
         }
+    },
+    computed:{
+        isSelectedFileEmpty(){
+                return this.selectedFile === null ? true : false;
+            }
     },
     components:{
         appNavBar: NavBar,

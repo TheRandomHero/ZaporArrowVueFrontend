@@ -18,7 +18,7 @@
                             <v-icon>fas fa-trash-alt</v-icon>
                         </v-btn>
                     </v-fab-transition>
-                   <v-img :src="'http://localhost:63085/api/Images/' + imgId" class="gallery-image"></v-img>
+                   <v-img :src="baseUrl + '/api/Images/' + imgId" class="gallery-image"></v-img>
                 </div>
             </v-col>
             <v-col class="lg-cols-6">
@@ -43,7 +43,7 @@
                         accept="image/*"
                         @change="onFileSelected">
                 <v-btn raised class="primary ma-2" @click="$refs.fileInput.click()" >Select file</v-btn>
-                <v-btn raised class="primary" @click="onUpload" :disabled="selectedFile === null ? true : false"  >Upload</v-btn>
+                <v-btn raised class="primary" @click="onUpload" :disabled="isSelectedFileEmpty">Upload</v-btn>
                 
             </v-col>
         </v-row>
@@ -72,11 +72,12 @@ import { mapGetters } from 'vuex'
                 selectedFile: null,
                 imageUrl: '',
                 image:background,
+                baseUrl: process.env.VUE_APP_URL,
                 
             }
         },
         mounted(){
-            this.$http.get('http://localhost:63085/api/Arrow/arrowDescription/' + this.id)
+            this.$http.get(this.baseUrl + '/api/Arrow/arrowDescription/' + this.id)
             .then(response => {
                 return response.json();
             })
@@ -90,11 +91,15 @@ import { mapGetters } from 'vuex'
             ...mapGetters([
                 'imageIdsForSpecArrow'
             ])
+            ,
+            isSelectedFileEmpty(){
+                return this.selectedFile === null ? true : false;
+            }
         },
         methods:{
             deleteArrow(){
                 if(confirm('Are you sure want to delete this Arrow?'))
-                    this.$http.delete('http://localhost:63085/api/Arrow/',{
+                    this.$http.delete(this.baseUrl + '/api/Arrow/',{
                         headers:{
                             'Content-type' : 'application/json',
                             'Authorization' : 'Bearer ' + this.$cookies.get('token')
@@ -102,6 +107,9 @@ import { mapGetters } from 'vuex'
                         params:{"arrowId": this.$route.params.id}
                     })
                     .then(this.$router.push({name:'gallery'}))
+                    .then(
+                        this.$store.dispatch('getGalleryImages')
+                    )
             },
 
             deleteImage(deletingId){
@@ -122,7 +130,7 @@ import { mapGetters } from 'vuex'
             onUpload(){
                 const fd = new FormData()
                 fd.append('file', this.selectedFile)
-                    this.$http.post('http://localhost:63085/api/Images/' + this.id, fd,{
+                    this.$http.post(this.baseUrl + '/api/Images/' + this.id, fd,{
                         headers:{
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },
@@ -137,7 +145,7 @@ import { mapGetters } from 'vuex'
             editDescription(){
                 const fd = new FormData();
                 fd.append('Description', this.arrow)
-                this.$http.put('http://localhost:63085/api/Arrow/' + this.id, fd,{
+                this.$http.put(this.baseUrl + '/api/Arrow/' + this.id, fd,{
                     headers:{
                             Authorization : 'Bearer ' + this.$cookies.get('token')
                         },

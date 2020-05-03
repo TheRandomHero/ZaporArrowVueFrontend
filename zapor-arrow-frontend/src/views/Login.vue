@@ -28,7 +28,7 @@
                             <v-btn raised class="primary" @click="submit" >Submit</v-btn>
                         </v-col>
                         <v-col>
-                            <v-btn raised class="primary" @click="clear">Clear</v-btn>
+                            <v-btn raised class="primary" @click="clear">Clear fields</v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
@@ -46,6 +46,7 @@ export default {
             username: '',
             password: '',
             show: false,
+            baseUrl: process.env.VUE_APP_URL,
             rules:{
                 required : value => !!value || 'Required.',
                 min : v=> v.length >= 8 || 'Min 8 characters required.'
@@ -57,7 +58,7 @@ export default {
           const fd = new FormData();
           fd.append('username', this.username)
           fd.append('password', this.password)
-          this.$http.post('http://localhost:63085/api/Account', fd)
+          this.$http.post(this.baseUrl + '/api/Account', fd)
             .then(response =>{
                 this.$cookies.set('token', response.data['token'])
                 this.$router.push('/gallery')
