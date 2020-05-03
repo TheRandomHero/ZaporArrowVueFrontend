@@ -49,9 +49,9 @@
             return {
                 drawer: false,
                 navItems: [
-                    {icon: 'fas fa-chess-rook', text: 'Home', route:'/'},
-                    {icon: 'far fa-image', text: 'Gallery', route:'/gallery'},
-                    {icon: 'far fa-id-badge', text: 'About Me', route:'/aboutMe'}
+                    {icon: 'fas fa-chess-rook', text: 'Főoldal', route:'/'},
+                    {icon: 'far fa-image', text: 'Galéria', route:'/gallery'},
+                    {icon: 'far fa-id-badge', text: 'Rólam', route:'/aboutMe'}
                 ],
                 image : '',
             }
