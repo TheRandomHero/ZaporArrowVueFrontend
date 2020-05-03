@@ -19,12 +19,12 @@
                         </v-img>
                     </v-card>
                     <v-spacer></v-spacer>
-                    <v-card flat :to="'about'"  max-width="50%" class="card-picture">
+                    <v-card flat :to="'aboutMe'"  max-width="50%" class="card-picture">
                         <v-img src="./../assets/about.jpg" width="100%" max-height="400">
                             <h2 class="card-text">About</h2>
                         </v-img>
                     </v-card>
-                    <v-card flat :to="'about'">
+                    <v-card flat :to="'aboutMe'">
 
                     </v-card>
 

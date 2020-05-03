@@ -43,7 +43,7 @@
                         accept="image/*"
                         @change="onFileSelected">
                 <v-btn raised class="primary ma-2" @click="$refs.fileInput.click()" >Select file</v-btn>
-                <v-btn raised class="primary" @click="onUpload">Upload</v-btn>
+                <v-btn raised class="primary" @click="onUpload" :disabled="selectedFile === null ? true : false"  >Upload</v-btn>
                 
             </v-col>
         </v-row>

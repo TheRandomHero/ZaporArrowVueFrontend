@@ -15,9 +15,22 @@
             <v-row align="center" justify="center">
                 <v-col cols="8">
                     <v-card flat class="main-image-card">
+                        <v-row>
+                            <v-fab-transition >
+                                <v-btn v-if="isLoggedIn"
+                                class="btn-fix"
+                                absolute
+                                top
+                                right
+                                fab
+                                @click.stop="$router.push({name:'arrowPage', params: {id: arrowId}})">
+                                    <v-icon>fas fa-edit</v-icon>
+                                </v-btn>
+                            </v-fab-transition>
+                        </v-row>
                         <transition name="fade">
+                        
                         <v-img :src="imgUrl"
-                            :key="imgIndex"
                             alt="align-center"
                             width="66%" 
                             height="100%" 
@@ -37,19 +50,6 @@
                 <v-card v-for="(id, i) in imageIdsForArrow" :key="i"
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
-                    <v-row>
-                        <v-fab-transition >
-                        <v-btn v-if="isLoggedIn"
-                        class="btn-fix"
-                        absolute
-                        top
-                        right
-                        fab
-                        @click.stop="$router.push({name:'arrowPage', params: {id: arrowId}})">
-                            <v-icon>fas fa-edit</v-icon>
-                        </v-btn>
-                    </v-fab-transition>
-                    </v-row>
                     <v-img :src="'http://localhost:63085/api/Images/' + id"
                     alt="align-center"
                     @click.stop="changeMainImage(i)">

@@ -4,7 +4,7 @@
             <app-nav-bar :bg="image"/>
         </v-row>
         <app-nav-bar></app-nav-bar>
-        <v-row >
+        <v-row>
             <v-col cols="10" offset="1"  class="gallery">
                 <div v-for="(arrId, imgId) in ids" :key="imgId">
                     <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
@@ -20,6 +20,7 @@
 import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
+import galleryBg from './../assets/bg/wood1.jpg'
 
 export default {
     data() {
@@ -27,7 +28,8 @@ export default {
             ids: null,
             isActive:false,
             image:background,
-            dialog:false
+            dialog:false,
+            galleryBg,
         }
     },
     components:{
