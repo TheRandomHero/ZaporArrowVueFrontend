@@ -46,7 +46,7 @@ export default {
             selectedFile: null,
             imageUrl: '',
             description:'',
-            baseUrl: process.env.VUE_APP_URL,
+            baseUrl: process.env.VUE_APP_ROOT_API,
 
         }
     },

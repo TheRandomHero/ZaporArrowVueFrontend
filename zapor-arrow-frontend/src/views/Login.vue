@@ -46,7 +46,7 @@ export default {
             username: '',
             password: '',
             show: false,
-            baseUrl: process.env.VUE_APP_URL,
+            baseUrl: process.env.VUE_APP_ROOT_API,
             rules:{
                 required : value => !!value || 'Required.',
                 min : v=> v.length >= 8 || 'Min 8 characters required.'

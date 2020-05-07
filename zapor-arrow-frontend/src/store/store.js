@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
     actions:{
         getImageIdsForArrow( {commit}, id){
             return new Promise((resolve, reject) =>{
-                Vue.http.get(process.env.VUE_APP_URL + '/api/Images/getall/' + id)
+                Vue.http.get(process.env.VUE_APP_ROOT_API + '/api/Images/getall/' + id)
                     .then(response =>{
                         resolve(
                             commit('SET_IMAGEIDSFORARROW', response.data)
@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
             }) 
         },
         getGalleryImages( { commit } ){
-            Vue.http.get(process.env.VUE_APP_URL + '/api/gallery')
+            Vue.http.get(process.env.VUE_APP_ROOT_API + '/api/gallery')
             .then(response => {
                 commit('SET_IMAGESIDSFORGALLERY', response.data)
             })
@@ -50,7 +50,7 @@ export const store = new Vuex.Store({
         },
         
         deleteImage({commit}, id){
-            Vue.http.delete(process.env.VUE_APP_URL + '/api/Images/',{
+            Vue.http.delete(process.env.VUE_APP_ROOT_API + '/api/Images/',{
                 headers:{
                     'Content-type' : 'application/json',
                     'Authorization': 'Bearer ' + cookies.get('token')
