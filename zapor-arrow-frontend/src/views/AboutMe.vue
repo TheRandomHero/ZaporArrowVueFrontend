@@ -31,7 +31,7 @@ export default {
     },
     mounted() {
         console.log("env: " + process.env.NODE_ENV)
-        console.log("api: " + process.env.ROOT_API)
+        console.log("api: " + process.env.VUE_APP_ROOT_API)
     }
 }
 </script>
