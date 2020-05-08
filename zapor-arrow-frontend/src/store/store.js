@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
     actions:{
         getImageIdsForArrow( {commit}, id){
             return new Promise((resolve, reject) =>{
-                Vue.http.get(process.env.VUE_APP_ROOT_API + '/api/Images/getall/' + id)
+                Vue.http.get('https://zaporarrowapi.azurewebsites.net/api/Images/getall/' + id)
                     .then(response =>{
                         resolve(
                             commit('SET_IMAGEIDSFORARROW', response.data)
@@ -38,10 +38,10 @@ export const store = new Vuex.Store({
             }) 
         },
         getGalleryImages( { commit } ){
-            Vue.http.get(process.env.VUE_APP_ROOT_API + '/api/gallery')
+            Vue.http.get('https://zaporarrowapi.azurewebsites.net/api/gallery')
             .then(response => {
                 commit('SET_IMAGESIDSFORGALLERY', response.data),
-                console.log(process.env.VUE_APP_ROOT_API)
+                console.log(response.data)
             })
         },
 
@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
         },
         
         deleteImage({commit}, id){
-            Vue.http.delete(process.env.VUE_APP_ROOT_API + '/api/Images/',{
+            Vue.http.delete('https://zaporarrowapi.azurewebsites.net/api/Images/',{
                 headers:{
                     'Content-type' : 'application/json',
                     'Authorization': 'Bearer ' + cookies.get('token')

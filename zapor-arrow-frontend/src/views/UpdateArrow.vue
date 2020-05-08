@@ -72,7 +72,7 @@ import { mapGetters } from 'vuex'
                 selectedFile: null,
                 imageUrl: '',
                 image:background,
-                baseUrl: process.env.VUE_APP_ROOT_API,
+                baseUrl: 'https://zaporarrowapi.azurewebsites.net',
                 
             }
         },

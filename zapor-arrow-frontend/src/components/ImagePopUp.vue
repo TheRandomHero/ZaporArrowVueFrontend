@@ -71,7 +71,7 @@ export default {
             loader: true,
             mainImage:null,
             imageIdsForArrow:[],
-            baseUrl: process.env.VUE_APP_ROOT_API,
+            baseUrl: 'https://zaporarrowapi.azurewebsites.net',
 
         }
     },
