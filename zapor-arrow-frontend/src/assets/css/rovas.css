@@ -1,0 +1,30 @@
+@font-face {
+  font-family: 'RotatalpasNBProS';
+  font-style: normal;
+  font-weight: normal;
+  src: url('rotatalpasnbpros-rovasmag.eot');
+  src: local('RotatalpasNBProS'),
+       url('rotatalpasnbpros-rovasmag.eot?#iefix') format('embedded-opentype'),
+       url('rotatalpasnbpros-rovasmag.woff') format('woff'),
+       url('RotatalpasNBProS.ttf') format('truetype'),
+       url('rotatalpasnbpros-rovasmag.svg#RotatalpasNBProSRegular') format('svg');
+}
+.rotatalpasnbpros {
+  font-family: 'RotatalpasNBProS';
+  unicode-bidi: bidi-override;
+  text-transform: none !important;
+  direction: rtl;
+  font-weight: normal;
+}
+.rotatalpasnbpros-nagy {
+  font-family: 'RotatalpasNBProS';
+  unicode-bidi: bidi-override;
+  text-transform: none !important;
+  direction: rtl;
+  font-size: 150%;
+  margin: 0;
+  font-weight: normal;
+}
+.rotatalpasnbpros-0 {
+  font-family: 'RotatalpasNBProS';
+}
