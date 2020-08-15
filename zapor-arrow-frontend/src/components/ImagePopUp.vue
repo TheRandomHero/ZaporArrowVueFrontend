@@ -3,7 +3,7 @@
         <template v-slot:activator="{ on }">
             <v-btn text v-on="on" min-width="250" min-height="250" rounded>
                 <v-card max-width="250" max-height="250" class="text-center">
-                    <v-img :src="baseUrl+'/api/Images/' + imageId" 
+                    <v-img :src="baseUrl+'/api/Images/' + imageTag" 
                     class="align-center" 
                     width="100%" 
                     height="100%"></v-img>
@@ -77,7 +77,7 @@ export default {
     },
     props:{
         arrowId: String,
-        imageId: String,
+        imageTag: String,
     },
 
     mounted: function(){

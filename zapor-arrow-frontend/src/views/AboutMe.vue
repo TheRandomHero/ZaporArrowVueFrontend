@@ -28,10 +28,6 @@ import NavBar from './../components/NavBar.vue'
 export default {
     components:{
       appNavBar: NavBar,
-    },
-    mounted() {
-        console.log("env: " + process.env.NODE_ENV)
-        console.log("api: " + process.env.VUE_APP_ROOT_API)
     }
 }
 </script>

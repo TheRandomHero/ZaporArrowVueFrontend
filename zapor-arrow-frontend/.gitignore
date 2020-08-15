@@ -12,6 +12,7 @@ package-lock.json
 .firebase
 
 # local env files
+.env
 .env.local
 .env.*.local
 

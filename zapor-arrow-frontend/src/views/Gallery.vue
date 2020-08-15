@@ -6,8 +6,11 @@
         <app-nav-bar></app-nav-bar>
         <v-row >
             <v-col cols="10" offset="1"  class="gallery">
-                <div v-for="(arrId, imgId) in getGalleryImagesIds" :key="imgId">
-                    <image-pop-up :imageId="imgId" :arrowId ="arrId" @blurBackground="changeBackground"/>
+                <div v-for="(tag, index) in tags" :key="index">
+                    <image-pop-up :imageTag="tag"  @blurBackground="changeBackground"/>
+                    <cld-image :publicId="publicIds[index]" cloudName="dwqs04xan">
+                        <cld-transformation crop="scale" width="200" height="200" />
+                    </cld-image>
                 </div>
 
             </v-col>
@@ -20,11 +23,15 @@
 import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
+import axios from 'axios';
 import { mapGetters} from 'vuex'
+import { CldImage, CldTransformation } from 'cloudinary-vue'
 
 export default {
     data() {
         return {
+            publicIds:[],
+            tags:[],
             ids: null,
             isActive:false,
             image:background,
@@ -34,9 +41,26 @@ export default {
     components:{
       appNavBar: NavBar,
       ImagePopUp: Popup,
+      CldImage,
+      CldTransformation
     },
     mounted() {
-        this.$store.dispatch("getGalleryImages");
+        axios.get(
+            'https://res.cloudinary.com/dwqs04xan/image/list/profil.json',{
+                headers:{
+                    'Access-Control-Allow-Origin': '*',
+               
+                }
+            })
+            .then((res) => {
+                this.publicIds = res.data.resources.map(p =>{
+                    return p.public_id
+                })
+                this.tags = res.data.resources.map(t =>{
+                    let str = t.public_id;
+                    return str.slice(0, str.indexOf("/"))
+                }) 
+            })
         },
     methods:{
         changeBackground(){

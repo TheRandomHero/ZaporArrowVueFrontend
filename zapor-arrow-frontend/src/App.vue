@@ -23,7 +23,6 @@
     methods:{
       changeBackground(){
         this.isActive = !this.isActive
-        console.log('blur')
       }
     }
   };
