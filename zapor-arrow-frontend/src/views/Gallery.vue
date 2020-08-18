@@ -7,10 +7,7 @@
         <v-row >
             <v-col cols="10" offset="1"  class="gallery">
                 <div v-for="(tag, index) in tags" :key="index">
-                    <image-pop-up :imageTag="tag"  @blurBackground="changeBackground"/>
-                    <cld-image :publicId="publicIds[index]" cloudName="dwqs04xan">
-                        <cld-transformation crop="scale" width="200" height="200" />
-                    </cld-image>
+                    <image-pop-up :imageTag="tag" :profilPublicId="publicIds[index]"  @blurBackground="changeBackground"/>
                 </div>
 
             </v-col>
@@ -25,12 +22,10 @@ import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
 import axios from 'axios';
 import { mapGetters} from 'vuex'
-import { CldImage, CldTransformation } from 'cloudinary-vue'
 
 export default {
     data() {
         return {
-            publicIds:[],
             tags:[],
             ids: null,
             isActive:false,
@@ -41,17 +36,9 @@ export default {
     components:{
       appNavBar: NavBar,
       ImagePopUp: Popup,
-      CldImage,
-      CldTransformation
     },
     mounted() {
-        axios.get(
-            'https://res.cloudinary.com/dwqs04xan/image/list/profil.json',{
-                headers:{
-                    'Access-Control-Allow-Origin': '*',
-               
-                }
-            })
+        axios.get('https://res.cloudinary.com/dwqs04xan/image/list/profil.json')
             .then((res) => {
                 this.publicIds = res.data.resources.map(p =>{
                     return p.public_id
@@ -77,7 +64,7 @@ export default {
 <style scoped>
     .gallery {
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         flex-wrap: wrap;
     }
     .main-title{

@@ -1,19 +1,17 @@
 <template>
     <v-dialog v-model="dialog" fullscreen>
         <template v-slot:activator="{ on }">
-            <v-btn text v-on="on" min-width="250" min-height="250" rounded>
-                <v-card max-width="250" max-height="250" class="text-center">
-                    <v-img :src="baseUrl+'/api/Images/' + imageTag" 
+                <v-card v-on="on" max-width="250" max-height="250" class="text-center" tag="button" >
+                    <v-img :src="imgBaseUrl + profilPublicId + '.jpg' " 
                     class="align-center" 
                     width="100%" 
                     height="100%"></v-img>
                 </v-card>
-            </v-btn>
         </template>
         <v-container fluid fill-height @click="close" class="popup">
 
             <v-row align="center" justify="center">
-                <v-col cols="8">
+                <v-col cols="8" >
                     <v-card flat class="main-image-card">
                         <v-row>
                             <v-fab-transition >
@@ -30,8 +28,8 @@
                         </v-row>
                         <transition name="fade">
                         <v-img :src="imgUrl"
-                            alt="align-center"
-                            width="66%" 
+                            :key="imgUrl"
+                            width="100%" 
                             height="100%" 
                             @click.stop="next"
                          ></v-img>
@@ -45,11 +43,11 @@
                 </v-card>
                 </v-col>
             </v-row>
-            <v-row align="end" justify="center">
-                <v-card v-for="(id, i) in imageIdsForArrow" :key="i"
+            <v-row  justify="center">
+                <v-card v-for="(url, i) in imageUrls" :key="i"
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
-                    <v-img :src="baseUrl +'/api/Images/' + id"
+                    <v-img :src="url"
                     alt="align-center"
                     @click.stop="changeMainImage(i)">
                     </v-img>
@@ -61,6 +59,8 @@
 
 <script>
 import { mapGetters} from 'vuex'
+import  axios  from 'axios'
+
 
 export default {
     data(){
@@ -70,35 +70,26 @@ export default {
             arrow:null,
             loader: true,
             mainImage:null,
-            imageIdsForArrow:[],
-            baseUrl: 'https://zaporarrowapi.azurewebsites.net',
+            imageUrls:[],
+            imgBaseUrl: 'https://res.cloudinary.com/dwqs04xan/image/upload/',
+            jsonBaseUrl: `https://res.cloudinary.com/dwqs04xan/image/list/${this.imageTag}.json`
 
         }
     },
     props:{
-        arrowId: String,
+        profilPublicId: String,
         imageTag: String,
     },
 
     mounted: function(){
         this.$nextTick(function(){
-            this.$http.get(this.baseUrl + '/api/Arrow/arrowDescription/' + this.arrowId).
-                then(response => {
-                    return response.json();
+            axios.get(this.jsonBaseUrl)
+            .then((res) =>{
+                this.imageUrls = res.data.resources.map(p => {
+                    return `${this.imgBaseUrl}${p.public_id}.${p.format}`
                 })
-                .then(data =>{
-                    this.arrow = data;
-                });
-            }),
-            this.$http.get(this.baseUrl + '/api/Images/getall/' + this.arrowId)
-                .then(response =>{
-                    return response.json();
-                })
-                .then(data => {
-                    for(let id in data){
-                        this.imageIdsForArrow.push(data[id]);
-                    }
-                });
+            })
+        })
         },
 
     watch:{
@@ -106,7 +97,7 @@ export default {
                 this.$emit('blurBackground', this.dialog)
             },
             'imgIndex': function(){
-                this.mainImage = this.imageIdsForArrow[this.imgIndex]
+                this.mainImage = this.imageUrls[this.imgIndex]
             },
         },
 
@@ -120,7 +111,7 @@ export default {
         },
         next(){
             this.imgIndex += 1;
-            if(this.imgIndex >= this.imageIdsForArrow.length){
+            if(this.imgIndex >= this.imageUrls.length){
                 this.imgIndex = 0;
             }
         },
@@ -133,7 +124,7 @@ export default {
             'isLoggedIn'
         ]),
         imgUrl(){
-            const imgSource = this.baseUrl + '/api/Images/' + this.imageIdsForArrow[this.imgIndex]
+            const imgSource = this.imageUrls[this.imgIndex]
 
             return imgSource
         }
@@ -145,10 +136,8 @@ export default {
     .popup{
         position: relative;
         background-color: rgba(0, 0, 0, 0.6);
-        display: flex;
         overflow: hidden;
-        align-items: flex-start;
-        min-height: 100%;
+        align-items: stretch;
     }
 
     .thumb{
@@ -156,7 +145,7 @@ export default {
     }
     .img-thumbs{
         background-color: transparent;
-        width: 150px;
+        width: 12%;
         height: 100%;
         object-fit: cover;
         float: none;
@@ -167,16 +156,16 @@ export default {
     .img-thumbs--active{
         opacity: 1;
     }
-    .image-container{
-        width: 100%;
-        overflow-x: auto;
-        display: inline-block;
-    }
+ 
     .main-image-card{
+        position: relative;
         background-color: transparent;
         margin-left: 20%;
-        display: flex;
         max-width: 70%;
+    }
+    .main-image-card img{
+        position: absolute;
+        
     }
 
     .btn-fix:focus::before {
@@ -185,16 +174,24 @@ export default {
     }
     .description-card{
         position: fixed;
-    }
-    .fade-enter-active {
-    transition:  all 1s ease;
-    }
-
-    .fade-enter-to {
-    opacity: 1;
+        background-color: transparent;
+        color: white;
+        font-weight: 500;
     }
 
+
+
+    .fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+    
+    }
     .fade-enter {
-    opacity: 0;
+        transition: opacity 1s;
+        opacity: 0;
+    } 
+    .fade-leave-to{
+        transition: opacity 1s;
+        opacity: 0;
+        position: absolute;
     }
 </style>
