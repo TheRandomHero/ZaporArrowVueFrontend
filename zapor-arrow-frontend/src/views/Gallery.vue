@@ -63,9 +63,14 @@ export default {
 </script>
 <style scoped>
     .gallery {
-        display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 15px;
+        justify-content: center;
+    }
+    .gallery div{
+        margin: auto;
+        padding: auto;
     }
     .main-title{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sansp
