@@ -12,6 +12,7 @@
     "cloudinary-vue": "^1.1.1",
     "core-js": "^3.4.3",
     "dotenv": "^8.2.0",
+    "firebase": "^7.18.0",
     "vue": "^2.6.10",
     "vue-cookies": "^1.7.0",
     "vue-load-image": "^0.1.9",
