@@ -32,6 +32,7 @@
                             width="100%" 
                             height="100%" 
                             @click.stop="next"
+                            class="rounded-xl main-image"
                          ></v-img>
                         </transition>
                     </v-card>
@@ -43,12 +44,14 @@
                 </v-card>
                 </v-col>
             </v-row>
-            <v-row  justify="center">
+            <v-row  justify="center" align="end" class="thumb-container">
                 <v-card v-for="(url, i) in imageUrls" :key="i"
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-img :src="url"
+                    style="border:2px solid whitesmoke"
                     alt="align-center"
+                    class="rounded-lg"
                     @click.stop="changeMainImage(i)">
                     </v-img>
                 </v-card>
@@ -140,6 +143,10 @@ export default {
         align-items: stretch;
     }
 
+
+    .thumb-container{
+        align-self: flex-end;
+    }
     .thumb{
         background-color: black;
     }
@@ -166,6 +173,10 @@ export default {
     .main-image-card img{
         position: absolute;
         
+    }
+
+    .main-image {
+        border: 5px solid whitesmoke
     }
 
     .btn-fix:focus::before {

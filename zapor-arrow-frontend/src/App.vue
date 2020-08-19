@@ -1,8 +1,8 @@
 <template> 
   <v-app>
-    <v-content>
+    <v-main>
       <router-view :class="{myBlurEffect : isActive}" v-on:blurBackground="changeBackground()"></router-view>
-    </v-content>
+    </v-main>
       <app-footer />
   </v-app>
 </template>
