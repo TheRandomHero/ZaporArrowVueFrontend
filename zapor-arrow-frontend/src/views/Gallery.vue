@@ -4,12 +4,12 @@
             <app-nav-bar :bg="image"/>
         </v-row>
         <app-nav-bar></app-nav-bar>
+        <div v-if="user.loggedIn" class="alert alert-success" role="alert">You are logged in! <button @click="signOut">Sign Out</button></div>
         <v-row >
             <v-col cols="10" offset="1"  class="gallery">
                 <div v-for="(tag, index) in tags" :key="index">
                     <image-pop-up :imageTag="tag" :profilPublicId="publicIds[index]"  @blurBackground="changeBackground"/>
                 </div>
-
             </v-col>
         </v-row>
     </v-container>
@@ -21,6 +21,7 @@ import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
 import axios from 'axios';
+import firebase from 'firebase';
 import { mapGetters} from 'vuex'
 
 export default {
@@ -52,12 +53,23 @@ export default {
     methods:{
         changeBackground(){
             this.isActive = !this.isActive
+        },
+        signOut(){
+            firebase
+            .auth()
+            .signOut()
+            .then(() =>{
+                this.$router.replace({
+                    name: "home"
+                });
+            });
         }
     },
     computed:{
-        ...mapGetters([
-            'getGalleryImagesIds'
-        ])
+        ...mapGetters({
+            user: 'user'
+        }
+        )
     }
     }
 </script>

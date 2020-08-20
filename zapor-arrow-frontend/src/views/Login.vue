@@ -39,6 +39,7 @@
 
 <script>
 import NavBar from './../components/NavBar';
+import firebase from 'firebase';
  
 export default {
     data(){
@@ -46,7 +47,7 @@ export default {
             username: '',
             password: '',
             show: false,
-            baseUrl: 'https://zaporarrowapi.azurewebsites.net',
+            err: null,
             rules:{
                 required : value => !!value || 'Required.',
                 min : v=> v.length >= 8 || 'Min 8 characters required.'
@@ -55,14 +56,16 @@ export default {
     },
     methods:{
       submit(){
-          const fd = new FormData();
-          fd.append('username', this.username)
-          fd.append('password', this.password)
-          this.$http.post(this.baseUrl + '/api/Account', fd)
-            .then(response =>{
-                this.$cookies.set('token', response.data['token'])
-                this.$router.push('/gallery')
-            })
+          firebase
+          .auth()
+          .signInWithEmailAndPassword(this.username, this.password)
+          .then(data =>{
+              this.$router.replace({name: "gallery"})
+              console.log(data)
+          })
+          .catch(err =>{
+              this.err = err.message;
+          })
       },
       clear(){
           this.username = "",
