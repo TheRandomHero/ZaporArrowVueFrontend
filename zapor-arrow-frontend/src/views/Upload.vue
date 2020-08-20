@@ -4,11 +4,16 @@
         <v-row>
             <v-col class="col-4 offset-4">
             <v-form>
-                <v-textarea
-                v-model="description"
-                label="Description"
+                <v-text-field
+                v-model="tags"
+                label="Tags"
                 required
-                ></v-textarea>
+                ></v-text-field>
+                <v-text-field
+                v-model="folder"
+                label="Mappa"
+                required
+                ></v-text-field>
 
                 <v-row> 
                     <v-col>
@@ -39,14 +44,17 @@
 <script>
 
 import NavBar from './../components/NavBar';
+import axios from 'axios';
 
 export default {
     data(){
         return{
+            uploadPreset:'mchzxehv',
             selectedFile: null,
             imageUrl: '',
-            description:'',
-            baseUrl: 'https://zaporarrowapi.azurewebsites.net',
+            tags:'',
+            folder:'',
+            baseUrl: 'https://api.cloudinary.com/v1_1/dwqs04xan/upload/',
 
         }
     },
@@ -62,17 +70,16 @@ export default {
         },
         onUpload(){
             const fd = new FormData()
-            fd.append('Description', this.description)
-            fd.append('PhotoFile', this.selectedFile)
-                this.$http.post(this.baseUrl + '/api/Arrow', fd,{
-                    headers:{
-                            Authorization : 'Bearer ' + this.$cookies.get('token')
-                        },
+            fd.append('tags', this.tags.split(","))
+            fd.append('file', this.selectedFile)
+            fd.append('upload_preset', this.uploadPreset)
+            fd.append('folder', this.folder)
+                axios.post(this.baseUrl, fd,{
                 })
                 .then(response =>{
-                        this.$router.push('/arrow/'+response.data)
+                      console.log(response)
                     })            
-        }
+        },
     },
     computed:{
         isSelectedFileEmpty(){

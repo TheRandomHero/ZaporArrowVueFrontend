@@ -71,7 +71,7 @@ export const store = new Vuex.Store({
         },
         //firebase actions
         fetchUser({ commit }, user){
-            commit('SET_LOGGED_IN', user !==null, {root : true});
+            commit('SET_LOGGED_IN', user !==null);
             if(user){
                 commit('SET_USER',{
                     displayName: user.displayName,

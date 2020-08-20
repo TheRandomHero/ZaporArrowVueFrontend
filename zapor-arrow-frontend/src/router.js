@@ -7,6 +7,7 @@ import AboutMe from './views/AboutMe'
 import UpdateArrow from './views/UpdateArrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
+import firebase from 'firebase'
 
 
 Vue.use(Router);
@@ -14,7 +15,6 @@ Vue.use(VueResource);
 
 const  router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
   routes: [
     {
       path: '/',
@@ -59,17 +59,19 @@ const  router = new Router({
 
 router.beforeEach((to, from, next)=>{
   if(to.matched.some(record => record.meta.requiresAuth)){
-    if(!window.$cookies.isKey('token')){
-      next({
-        name:'login'
+    firebase.auth().onAuthStateChanged(user =>{
+      if(!user){
+        next({
+          name:'login'
+        })
+      } else {
+        next()
       }
-      )
+    })
+
     } else {
       next()
     }
-  } else {
-    next()
-  }
 })
 
 export default router;

@@ -22,7 +22,7 @@ import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
 import axios from 'axios';
 import firebase from 'firebase';
-import { mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
     data() {
