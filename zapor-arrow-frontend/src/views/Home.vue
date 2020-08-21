@@ -15,13 +15,13 @@
                     </v-card>
                     <v-card flat :to="'goodToKnow'"  max-width="50%" class="card-picture">
                         <v-img src="./../assets/equipment.jpg" width="100%" max-height="400">
-                            <h2 class="card-text">Good To Know</h2>
+                            <div class="card-text">Good To Know</div>
                         </v-img>
                     </v-card>
                     <v-spacer></v-spacer>
                     <v-card flat :to="'aboutMe'"  max-width="50%" class="card-picture">
                         <v-img src="./../assets/about.jpg" width="100%" max-height="400">
-                            <h2 class="card-text">About</h2>
+                            <div class="card-text">About</div>
                         </v-img>
                     </v-card>
                     <v-card flat :to="'about'">

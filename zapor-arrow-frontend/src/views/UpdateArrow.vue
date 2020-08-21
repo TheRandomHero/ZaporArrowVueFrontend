@@ -5,7 +5,7 @@
         </v-row>
         <v-row >
             <v-col class="gallery-container lg-cols-6">
-                <div v-for="imgId in imageIdsForSpecArrow" :key="imgId"  class="image-container">
+                <div v-for="imgUrl in imageUrls" :key="imgUrl"  class="image-container">
                     <v-fab-transition>
                         <v-btn
                         class="btn-fix"
@@ -18,7 +18,7 @@
                             <v-icon>fas fa-trash-alt</v-icon>
                         </v-btn>
                     </v-fab-transition>
-                   <v-img :src="baseUrl + '/api/Images/' + imgId" class="gallery-image"></v-img>
+                   <v-img :src="imgUrl" class="gallery-image"></v-img>
                 </div>
             </v-col>
             <v-col class="lg-cols-6">
@@ -62,6 +62,7 @@
 <script>
 import NavBar from './../components/NavBar';
 import background from './../assets/gallery-bg.jpg'
+import axios from 'axios'
 import { mapGetters } from 'vuex'
     export default {
         props: ['id'],
@@ -72,25 +73,33 @@ import { mapGetters } from 'vuex'
                 selectedFile: null,
                 imageUrl: '',
                 image:background,
-                baseUrl: 'https://zaporarrowapi.azurewebsites.net',
+                imageUrls:[],
+                imgBaseUrl: 'https://res.cloudinary.com/dwqs04xan/image/upload/',
+                jsonBaseUrl: `https://res.cloudinary.com/dwqs04xan/image/list/${this.id}.json`,
                 
             }
         },
         mounted(){
-            this.$http.get(this.baseUrl + '/api/Arrow/arrowDescription/' + this.id)
-            .then(response => {
-                return response.json();
+            axios.get(this.jsonBaseUrl)
+            .then((res) => {
+                this.imageUrls = res.data.resources.map(p => {
+                    return `${this.imgBaseUrl}${p.public_id}.${p.format}`
+                })
+            }).catch(err =>{
+                console.log(err)
             })
-            .then(data =>{
-                this.arrow = data['description'];
-            });
-            this.$store.dispatch("getImageIdsForArrow", this.id)
+            if(this.imageUrls.length === 0){
+                this.imageUrls.push(this.promiseData.imageUrl)
+                console.log(this.promiseData.imageUrl)
+            }
            
         },
         computed:{
             ...mapGetters([
-                'imageIdsForSpecArrow'
-            ])
+                'promiseData'
+
+            ]
+            )
             ,
             isSelectedFileEmpty(){
                 return this.selectedFile === null ? true : false;

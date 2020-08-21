@@ -76,9 +76,12 @@ export default {
             fd.append('folder', this.folder)
                 axios.post(this.baseUrl, fd,{
                 })
-                .then(response =>{
-                      console.log(response)
-                    })            
+                .then(res =>{
+                    this.$store.dispatch('getPromise', res.data.secure_url)
+                    console.log(res)
+                })
+                .then(
+                     this.$router.push('/arrow/'+ this.folder))          
         },
     },
     computed:{

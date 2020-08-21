@@ -11,6 +11,10 @@ export const store = new Vuex.Store({
         user:{
             loggedIn: false,
             data:null,
+        },
+        promiseData:{
+            imageUrl:null,
+            mainTag:null,
         }
 
     },
@@ -27,7 +31,11 @@ export const store = new Vuex.Store({
         //firebase getters
         user(state){
             return state.user
+        },
+        promiseData(state){
+            return state.promiseData
         }
+        
 
     },
     actions:{
@@ -80,8 +88,11 @@ export const store = new Vuex.Store({
             } else {
                 commit('SET_USER', null, {root:true});
             }
+        },
+        //upload
+        getPromise({commit}, imageUrl){
+            commit('SET_PROMISE_DATA', imageUrl)
         }
-
     },
     mutations:{
         DELETE_IMAGE (state, id){
@@ -106,7 +117,11 @@ export const store = new Vuex.Store({
         },
         SET_USER(state, data){
             state.user.data = data;
-        }
         },
+        //after upload 
+        SET_PROMISE_DATA(state, imageUrl){
+            state.promiseData.imageUrl = imageUrl
+        }
+    },
 
 })
