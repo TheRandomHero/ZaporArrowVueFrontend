@@ -1,40 +1,34 @@
 <template>
-    <v-container fluid class="home-container">
+    <v-container fill-height fluid class="home-container" tag="div">
+        <div class="main-title-container">
+            <p style="unicode-bidi:bidi-override">{{ title }}</p>
+        </div>
         <v-row>
-            <v-col cols="12" class="main-picture-container">
-                <v-img src="./../assets/mainbg.png" ></v-img>
-            </v-col>
+            <v-carousel 
+                        cycle
+                        show-arrows-on-hover
+                        hide-delimiters
+                        prev-icon="fas fa-chevron-left"
+                        next-icon="fas fa-chevron-right" 
+                        height="200">
+                <v-carousel-item
+                    v-for="(slide, i) in menuBar"
+                    :key="i"
+                    elevation="0">
+                        <v-btn text :to="slide.route" height="150" 
+                        depressed
+                        class="item-button">
+                            <div>
+                                <p class="menu-item">{{ slide.name }}</p>
+                                <v-img src="./../assets/arrows.png"  max-height="50"></v-img>
+                            </div>
+                        </v-btn>
+                </v-carousel-item>
+            </v-carousel>
         </v-row>
-        <v-row >
-            <v-col class="col-xs-12 col-md-8 offset-md-2 col-lg-10 offset-lg-1 pt-5 ">
-                <div class="sub-picture-container">
-                    <v-card flat :to="'gallery'" class="card-picture">
-                        <v-img src="./../assets/background.jpg" width="100%" max-height="400" >
-                            <div class="card-text">Gallery</div>
-                        </v-img>
-                    </v-card>
-                    <v-card flat :to="'goodToKnow'"  max-width="50%" class="card-picture">
-                        <v-img src="./../assets/equipment.jpg" width="100%" max-height="400">
-                            <div class="card-text">Good To Know</div>
-                        </v-img>
-                    </v-card>
-                    <v-spacer></v-spacer>
-                    <v-card flat :to="'aboutMe'"  max-width="50%" class="card-picture">
-                        <v-img src="./../assets/about.jpg" width="100%" max-height="400">
-                            <div class="card-text">About</div>
-                        </v-img>
-                    </v-card>
-                    <v-card flat :to="'about'">
-
-                    </v-card>
-
-                </div>
-            </v-col>
-        </v-row>
-        <v-row align-center>
-        
-        </v-row>
-        
+        <div class="sub-title-container">
+            <p>ZaporArrow</p>
+        </div>
     </v-container>
 </template>
 
@@ -42,38 +36,77 @@
     export default {
         data(){
             return{
+                title:"ZAPOR",
+                menuBar:[
+                    {
+                        name:"Galéria",
+                        route:"/gallery"
+                    },
+                    {
+                        name:"Rólam",
+                        route:"/aboutMe"
+                    }
+                ]
             } 
         },
+        methods:{
+            reverse(str){
+                return str.split('').reverse().join('');
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .main-picture-container{
-        padding: 0;
 
-    }
+    
     .home-container{
-        padding-top: 0px;
-    }
-    .sub-picture-container{
-        background-color: transparent;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        background-image: url('./../assets/bg.jpg');
+        background-size: cover;
+        display: grid !important;
+        text-align: center;
+        overflow: hidden;
 
+        
     }
-    .card-picture{
-        background-color: transparent;
-        position: relative;
-        padding-top: 10px;
-
-    }   
-    .card-text{
-        position: absolute;
-        bottom:50%;
-        left:43%;
-        font-size: 50px;
+    .main-title-container{
+        font-family: 'rovas';
+        direction: rtl;
+        font-size: 15em;
+        float:right;
+        margin: auto;
+        margin-top:-25px;
+    }
+    
+    /* .main-title-container:hover{
+        direction: ltr;
+        unicode-bidi: normal;
+        font-family: 'Courier New', Courier, monospace;
         font-weight: bolder;
-        color: white;
+    } */
+    .sub-title-container{
+        font-size: 5em;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        margin: auto;
+    }
+
+    .menu-item{
+        unicode-bidi:bidi-override !important;
+        font-size: 50px;
+        font-family: 'rovas';
+        direction: rtl;
+    }
+
+    .menu-item:hover{
+        direction: ltr;
+        unicode-bidi: normal;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bolder;
+    }
+    .v-btn::before{
+        color: transparent;
+    }
+    .v-window__next .v-btn::before{
+        color: transparent;
     }
 </style>

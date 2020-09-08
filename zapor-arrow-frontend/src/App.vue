@@ -3,22 +3,16 @@
     <v-main>
       <router-view :class="{myBlurEffect : isActive}" v-on:blurBackground="changeBackground()"></router-view>
     </v-main>
-      <app-footer />
   </v-app>
 </template>
 
 <script>
-  import Footer from './components/Footer'
-
   export default {
     name: 'App',
     data(){
       return{
         isActive: false
       }
-    },
-    components: {
-      appFooter: Footer
     },
     methods:{
       changeBackground(){
@@ -30,6 +24,16 @@
 
 
 <style>
+    ::-webkit-scrollbar {
+    display: none;
+}
+
+  @font-face {
+    font-family: "rovas";
+    src: local("rovas"),
+    url(./assets/fonts/rovas/Nagy_Medve.otf);
+  }
+
 
   .myBlurEffect{
         filter: blur(8px);

@@ -11,6 +11,10 @@ package-lock.json
 
 .firebase
 
+functions/
+
+dist/
+
 # local env files
 .env
 .env.local

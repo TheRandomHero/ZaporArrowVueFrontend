@@ -12,6 +12,7 @@
                 </div>
             </v-col>
         </v-row>
+        <app-footer></app-footer>
     </v-container>
 </template>
 
@@ -20,6 +21,7 @@
 import NavBar from './../components/NavBar.vue'
 import background from './../assets/gallery-bg.jpg'
 import Popup from './../components/ImagePopUp'
+import Footer from './../components/Footer'
 import axios from 'axios';
 import firebase from 'firebase';
 import { mapGetters } from 'vuex'
@@ -37,6 +39,7 @@ export default {
     components:{
       appNavBar: NavBar,
       ImagePopUp: Popup,
+      appFooter: Footer
     },
     mounted() {
         axios.get('https://res.cloudinary.com/dwqs04xan/image/list/profil.json')
@@ -74,11 +77,13 @@ export default {
     }
 </script>
 <style scoped>
+
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-gap: 15px;
         justify-content: center;
+        overflow:auto;
     }
     .gallery div{
         margin: auto;
