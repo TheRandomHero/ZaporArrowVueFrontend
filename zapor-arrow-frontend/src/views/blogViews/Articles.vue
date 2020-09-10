@@ -1,11 +1,17 @@
 <template>
-    <div>
-        <div v-for="article in articles" :key="article.id">
-            {{ article.title }}
-            <p>{{article.context}}</p>
-        </div>
-
-    </div>
+    <v-container>
+        <v-row v-for="article in articles" :key="article.id">
+            <v-col cols="8" offset="2">
+               <div>
+                   <p>{{ article.title }}</p> <v-spacer></v-spacer> <p>{{ article.date }}</p>
+               </div>
+               <div>
+                   {{article.context.slice(0,401) + "..."}}
+               </div>
+               <a @click.stop="$router.push({name:'viewArticle', params: {id: article.id}})">Read More..</a>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -26,12 +32,11 @@
                             'id':doc.id,
                             'title':doc.data().title,
                             'context':doc.data().context,
-                            'date': doc.data().date.toDate()
+                            'date': doc.data().date.toDate().toString().slice(3,15)
                         }
                         this.articles.push(data)
                     })
                 })
-                console.log(this.articles)
             }
     }
 </script>

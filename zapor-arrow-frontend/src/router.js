@@ -64,9 +64,10 @@ const  router = new Router({
       component:Articles,
     },
     {
-      path:'/view-article',
+      path:'/view-article/:id',
       name:'viewArticle',
       component:ViewArticle,
+      props:true,
 
     },
     {
@@ -79,7 +80,7 @@ const  router = new Router({
 
     },
     {
-      path:'/edit-article',
+      path:'/edit-article:id',
       name:'EditArticle',
       component:EditArticle,
       meta:{
