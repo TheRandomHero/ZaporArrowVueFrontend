@@ -33,8 +33,6 @@
 </template>
 
 <script>
-    import firebase from './../firebaseInit'
-    const db = firebase.firestore();
 
     export default {
         data(){
@@ -48,24 +46,15 @@
                     {
                         name:"Rólam",
                         route:"/aboutMe"
+                    },
+                    {
+                        name:"Cikkek",
+                        route:"/articles"
                     }
                 ]
             } 
         },
-        methods:{
-            reverse(str){
-                return str.split('').reverse().join('');
-            }
-        },
-        created(){
-            
-            db.collection('blogs').get()
-            .then(snap =>{
-                snap.forEach(doc =>{
-                    console.log(doc.data())
-                })
-            })
-        }
+        
     }
 </script>
 
