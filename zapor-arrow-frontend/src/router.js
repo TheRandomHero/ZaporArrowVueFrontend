@@ -7,10 +7,10 @@ import AboutMe from './views/AboutMe'
 import UpdateArrow from './views/UpdateArrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
-import NewArticle from './views/blogViews/NewArticle'
-import EditArticle from './views/blogViews/EditArticle'
-import ViewArticle from './views/blogViews/ViewArticle'
-import Articles from './views/blogViews/Articles'
+import NewBlogPost from './views/blogViews/NewBlogPost'
+import EditBlogPost from './views/blogViews/EditBlogPost'
+import ViewBlogPost from './views/blogViews/ViewBlogPost'
+import BlogPosts from './views/blogViews/BlogPosts'
 
 import firebase from 'firebase'
 
@@ -59,30 +59,30 @@ const  router = new Router({
       component:Login
     },
     {
-      path:'/articles',
-      name:'articles',
-      component:Articles,
+      path:'/blog-posts',
+      name:'blogPosts',
+      component:BlogPosts,
     },
     {
-      path:'/view-article/:id',
-      name:'viewArticle',
-      component:ViewArticle,
+      path:'/view-blog-post/:id',
+      name:'viewBlogpost',
+      component:ViewBlogPost,
       props:true,
 
     },
     {
-      path:'/new-article',
-      name:'newArticle',
-      component:NewArticle,
+      path:'/new-blog-post',
+      name:'newBlogPost',
+      component:NewBlogPost,
       meta:{
         requiresAuth:true
       }
 
     },
     {
-      path:'/edit-article:id',
-      name:'EditArticle',
-      component:EditArticle,
+      path:'/edit-blog-post/:id',
+      name:'editBlogPost',
+      component:EditBlogPost,
       meta:{
         requiresAuth:true
       }

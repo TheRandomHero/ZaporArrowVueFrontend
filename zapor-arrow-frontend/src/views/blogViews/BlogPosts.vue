@@ -32,7 +32,7 @@
                             'id':doc.id,
                             'title':doc.data().title,
                             'context':doc.data().context,
-                            'date': doc.data().date.toDate().toString().slice(3,15)
+                            'date': doc.data().date
                         }
                         this.articles.push(data)
                     })

@@ -98,7 +98,7 @@
         direction: rtl;
     }
 
-    .menu-item:hover{
+    .item-button:hover .menu-item{
         direction: ltr;
         unicode-bidi: normal;
         font-family: 'Courier New', Courier, monospace;

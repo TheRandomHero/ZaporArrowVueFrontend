@@ -1,16 +1,17 @@
 <template>
-    <v-container>
+    <v-container fluid>
         <v-row>
-            <v-col>
-                <div>
-                    <p>{{article.title}}</p>
-                    <p>{{article.date}}</p>
-                </div>
+            <v-col cols="11" class="article-header">
+                <p>{{article.title}}</p>
+            </v-col>
+            <v-col cols="1">
+                <p>{{article.date}}</p>
+
             </v-col>
         </v-row>
         <v-row>
-            <v-col>
-                <div>{{article.context}}</div>
+            <v-col cols="10" offset="1">
+                <div class="article-context">{{article.context}}</div>
             </v-col>
         </v-row>
     </v-container>    
@@ -36,7 +37,7 @@
                     this.article = {
                         'title': doc.data().title,
                         'context': doc.data().context,
-                        'date': doc.data().date.toDate().toString().slice(3,15)
+                        'date': doc.data().date
                     }
                 })
         }
@@ -45,5 +46,10 @@
     }
 </script>
 <style scoped>
-
+    .article-context{
+        text-align: justify;
+    }
+    .article-header{
+        text-align: center;
+    }
 </style>
