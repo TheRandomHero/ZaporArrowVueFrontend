@@ -1,5 +1,5 @@
 import firebase from 'firebase'
-
+import 'firebase/firestore'
 const firebaseConfig = {
     apiKey: process.env.VUE_APP_FIREBASEAPIKEY,
     authDomain: "zaporarrow-7f6ed.firebaseapp.com",
@@ -10,5 +10,6 @@ const firebaseConfig = {
     appId: process.env.VUE_APP_FIREBASEAPPID,
     measurementId: process.env.VUE_APP_FIREBASEMEASUREMENTID
   };
+  
   
   export default firebase.initializeApp(firebaseConfig);

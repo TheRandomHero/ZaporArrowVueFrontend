@@ -49,7 +49,7 @@
                     },
                     {
                         name:"Cikkek",
-                        route:"/articles"
+                        route:"/blog-posts"
                     }
                 ]
             } 
@@ -79,15 +79,10 @@
         margin-top:-25px;
     }
     
-    /* .main-title-container:hover{
-        direction: ltr;
-        unicode-bidi: normal;
-        font-family: 'Courier New', Courier, monospace;
-        font-weight: bolder;
-    } */
+
     .sub-title-container{
         font-size: 5em;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-family: 'twang';
         margin: auto;
     }
 

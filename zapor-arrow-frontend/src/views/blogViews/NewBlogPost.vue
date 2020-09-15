@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <form @submit="uploadArticle">
            <v-text-field
            v-model="title"
            label="Cím"
@@ -13,34 +14,83 @@
 
            </v-textarea>
 
-           <v-btn @click="uploadArticle" class="primary">Feltöltés</v-btn>
+            <v-row> 
+                <v-col>
+                    <input type="file" 
+                            style="display: none" 
+                            ref="fileInput" 
+                            accept="image/*"
+                            @change="onFileSelected">
+                    <v-btn raised class="primary" @click="$refs.fileInput.click()" >Select file</v-btn>
+                </v-col>
+            </v-row>
+
+            <v-row >
+                <v-col>
+                    <img :src="imageUrl" height="350">
+                </v-col>
+            </v-row>
+           <v-btn type="submit" class="primary">Feltöltés</v-btn>
+        </form>
     </v-container>    
 </template>
 <script>
+    import axios from 'axios'
     import firebase from './../../firebaseInit'
     const db = firebase.firestore();
 
     export default {
         data() {
             return {
+                uploadPreset: 'mchzxehv',
+                selectedFile: null,
+                baseUrl: 'https://api.cloudinary.com/v1_1/dwqs04xan/upload/',
                 title:'',
                 context:'',
-                date :  new Date().toISOString().slice(0, 10)
+                imageUrl:'',
+                date :  new Date().toISOString().slice(0, 10),
+
             }
         },
         methods:{
             uploadArticle(){
-                db.collection('blogs').
-                add({title: this.title, 
-                    context:this.context, 
-                    date: this.date}).
-                then(() =>{
-                    this.$router.push({name:'articles'})
-                }).
-                catch(err =>{
-                    console.log(err)
+                this.onUploadImageForBlog()
+                .then(() =>{
+                    db.collection('blogs').
+                    add({title: this.title, 
+                        context:this.context,
+                        imageUrl:this.imageUrl, 
+                        date: this.date}).
+                    then(() =>{
+                        this.$router.push({name:'articles'})
+                    }).
+                    catch(err =>{
+                        console.log(err)
+                    })
                 })
-            }
+            },
+            async onUploadImageForBlog(){
+                const fd = new FormData()
+                fd.append('file', this.selectedFile)
+                fd.append('upload_preset', this.uploadPreset)
+                fd.append('folder', 'Blog')
+                    axios.post(this.baseUrl, fd,{
+                    })
+                    .then(res =>{
+                        this.imageUrl = res.data.secure_url
+                    })        
+        },
+
+
+            onFileSelected(event){
+            this.selectedFile = event.target.files[0]
+
+            const fileReader = new FileReader()
+            fileReader.addEventListener('load', () => {
+                this.imageUrl = fileReader.result 
+            })
+            fileReader.readAsDataURL(this.selectedFile)
+        },
         }
         
     }

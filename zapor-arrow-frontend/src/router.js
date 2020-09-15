@@ -65,7 +65,7 @@ const  router = new Router({
     },
     {
       path:'/view-blog-post/:id',
-      name:'viewBlogpost',
+      name:'viewBlogPost',
       component:ViewBlogPost,
       props:true,
 
@@ -85,7 +85,8 @@ const  router = new Router({
       component:EditBlogPost,
       meta:{
         requiresAuth:true
-      }
+      },
+      props:true,
 
     },
   ]
