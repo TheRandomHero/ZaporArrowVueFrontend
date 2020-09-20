@@ -50,7 +50,6 @@
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-img :src="url"
                     alt="align-center"
-                    class="rounded-lg"
                     @click.stop="changeMainImage(i)">
                     </v-img>
                 </v-card>
