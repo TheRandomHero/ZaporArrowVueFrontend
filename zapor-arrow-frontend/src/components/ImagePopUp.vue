@@ -49,7 +49,6 @@
                     flat class="img-thumbs"
                     :class="{'img-thumbs--active' : i === imgIndex}" >
                     <v-img :src="url"
-                    style="border:2px solid whitesmoke"
                     alt="align-center"
                     class="rounded-lg"
                     @click.stop="changeMainImage(i)">
@@ -175,9 +174,6 @@ export default {
         
     }
 
-    .main-image {
-        border: 5px solid whitesmoke
-    }
 
     .btn-fix:focus::before {
         z-index: 15;

@@ -4,25 +4,30 @@
     <nav class="navbar">
         <p>Témák:</p>
         <ul class="navbar-nav">
+            <li class="nav-item">
+                <a  @click.stop="selectedCategory = ''">Összes téma</a> </li>
             <li v-for="(category,index) in categories" :key="index"
                 class="nav-item">
-                <a @click="filterCategorties(category)">{{category}}</a>
+                <a @click="selectedCategory = category">{{ category }}</a>
             </li>
         </ul>
     </nav>
     <v-row>
-        <v-col>
+        <v-col class="col" >
         <div class="masonry">
-            <div v-for="(post, key) in posts"
+            <div v-for="(post, key) in filteredPosts"
                 :key="key"
                 class="card"
+                
             >
                 <div class="card-content">
                     <div v-if="post.imageUrl != ''">
                         <img :src="post.imageUrl" :alt="post.title" class="img-responsive" @load="rendered">
                     </div>
                     <div class="p-20">
-                        <h3>{{ post.title }}</h3>
+                        <h3>
+                            <a @click="$router.push({name:'viewBlogPost', params:{id : post.id}})">{{ post.title }}</a>
+                        </h3>
                             <a>{{post.category}}</a>
                         <p>{{ post.date}}</p>
                     </div>
@@ -43,6 +48,7 @@
             return {
                 posts: [],
                 categories:[],
+                selectedCategory:'',
                 imageCounter: 0,
                 imagesCount: 0
             }
@@ -53,15 +59,26 @@
         created () {
             let masonryEvents = ['load', 'resize'];
             let vm = this
+            vm.resizeAllMasonryItems()
             masonryEvents.forEach(function (event) {
                 window.addEventListener(event, vm.resizeAllMasonryItems);
             });
+        },
+        updated(){
+            this.resizeAllMasonryItems()
         },
         watch: {
             imagesCount: function () {
                 if(this.imagesCount == this.imageCounter){
                     this.resizeAllMasonryItems()
                 }
+            }
+        },
+        computed:{
+            filteredPosts(){
+                return this.posts.filter((post) =>{
+                    return post.category.match(this.selectedCategory)
+                })
             }
         },
         methods: {
@@ -133,22 +150,29 @@
 
 <style lang="scss" type="text/css">
 
+    .col{
+        display: block;
+    }
     .blog-container{
         padding: 0;
+        box-sizing: border-box;
     }
     .masonry {
-        margin-left: 12rem;
         display: grid;
-        grid-gap: 15px;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-auto-rows: 0;
+        grid-gap: 15px;
+        margin-left: 15rem;
+        margin-right: 5rem;
     }
     .img-responsive{
         max-width: 100%;
         height: auto;
         display: block;
+        object-fit: cover;
     }
     .card{
+        box-sizing: border-box;
         box-shadow: 0 0 10px 3px #e4e4e4;
     }
 
