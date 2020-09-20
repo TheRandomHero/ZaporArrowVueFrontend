@@ -24,10 +24,15 @@
 
 
 <style>
-    ::-webkit-scrollbar {
-    display: none;
-}
-
+  html{
+    overflow: auto !important;
+    overflow-x: hidden !important;
+  
+  }
+  .myBlurEffect{
+        filter: blur(8px);
+        -webkit-filter: blur(8px);
+    }
   @font-face {
     font-family: "rovas";
     src: local("rovas"),
@@ -58,9 +63,4 @@
     url(./assets/fonts/JustAnotherHand/JustAnotherHand-Regular.ttf);
   }
 
-
-  .myBlurEffect{
-        filter: blur(8px);
-        -webkit-filter: blur(8px);
-    }
 </style>

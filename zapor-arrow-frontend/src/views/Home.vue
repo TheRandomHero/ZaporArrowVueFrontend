@@ -49,7 +49,7 @@
                     },
                     {
                         name:"Cikkek",
-                        route:"/blog-posts"
+                        route:"/blog"
                     }
                 ]
             } 
@@ -66,8 +66,6 @@
         background-size: cover;
         display: grid !important;
         text-align: center;
-        overflow: hidden;
-
         
     }
     .main-title-container{

@@ -59,19 +59,19 @@ const  router = new Router({
       component:Login
     },
     {
-      path:'/blog-posts',
+      path:'/blog',
       name:'blogPosts',
       component:BlogPosts,
     },
     {
-      path:'/view-blog-post/:id',
+      path:'/view-blog/:id',
       name:'viewBlogPost',
       component:ViewBlogPost,
       props:true,
 
     },
     {
-      path:'/new-blog-post',
+      path:'/new-blog',
       name:'newBlogPost',
       component:NewBlogPost,
       meta:{
@@ -80,7 +80,7 @@ const  router = new Router({
 
     },
     {
-      path:'/edit-blog-post/:id',
+      path:'/edit-blog/:id',
       name:'editBlogPost',
       component:EditBlogPost,
       meta:{

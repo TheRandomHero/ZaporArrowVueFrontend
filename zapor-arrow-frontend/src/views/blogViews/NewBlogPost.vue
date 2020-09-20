@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <form @submit="uploadArticle">
+        <form @submit.prevent="uploadArticle">
            <v-text-field
            v-model="title"
            label="Cím"
@@ -24,6 +24,14 @@
                     <v-btn raised class="primary" @click="$refs.fileInput.click()" >Select file</v-btn>
                 </v-col>
             </v-row>
+            <v-row>
+                <v-col>
+                    <select v-model="selectedCategory">
+                        <option disabled value="">Válassz kategóriát</option>
+                        <option v-for="(category,i) in categories" :key="i">{{category}}</option>
+                    </select>
+                </v-col>
+            </v-row>
 
             <v-row >
                 <v-col>
@@ -45,6 +53,15 @@
                 uploadPreset: 'mchzxehv',
                 selectedFile: null,
                 baseUrl: 'https://api.cloudinary.com/v1_1/dwqs04xan/upload/',
+                categories:[
+                    'Íjászat',
+                    'Tábor',
+                    'Esemémy',
+                    'Oktató',
+                    'Gondolatok',
+                    'Munka'
+                ],
+                selectedCategory:'',
                 title:'',
                 context:'',
                 imageUrl:'',
@@ -59,10 +76,11 @@
                     db.collection('blogs').
                     add({title: this.title, 
                         context:this.context,
-                        imageUrl:this.imageUrl, 
+                        imageUrl:this.imageUrl,
+                        category:this.selectedCategory,
                         date: this.date}).
                     then(() =>{
-                        this.$router.push({name:'articles'})
+                        console.log('uploaded')
                     }).
                     catch(err =>{
                         console.log(err)
@@ -78,10 +96,11 @@
                     })
                     .then(res =>{
                         this.imageUrl = res.data.secure_url
-                    })        
-        },
-
-
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                    })
+            },
             onFileSelected(event){
             this.selectedFile = event.target.files[0]
 
@@ -90,7 +109,7 @@
                 this.imageUrl = fileReader.result 
             })
             fileReader.readAsDataURL(this.selectedFile)
-        },
+            }
         }
         
     }
