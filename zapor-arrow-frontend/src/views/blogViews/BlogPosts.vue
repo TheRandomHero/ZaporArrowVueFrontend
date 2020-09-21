@@ -1,11 +1,10 @@
 <template>
-<v-container fluid class="blog-container">
-
+<v-content>
     <app-nav-bar header-title="Blogom"></app-nav-bar>
     <v-row>
         <v-col cols="2">
-                <p>Témák:</p>
                 <ul class="navbar-nav">
+                <p class="nav-header">Témák:</p>
                     <li class="nav-item">
                         <a  @click.stop="selectedCategory = ''">Összes téma</a> </li>
                     <li v-for="(category,index) in categories" :key="index"
@@ -38,7 +37,8 @@
         </div>
         </v-col>    
     </v-row>
-</v-container>
+    <app-footer></app-footer>
+</v-content>
 </template>
 
 <script>
@@ -46,6 +46,7 @@
     const db = firebase.firestore();
     
     import NavBar from './../../components/NavBar.vue'
+    import Footer from './../../components/Footer'
     
     export default {
         
@@ -59,7 +60,8 @@
             }
         },
         components:{
-            appNavBar:NavBar
+            appNavBar:NavBar,
+            appFooter: Footer
         },
         mounted () {
             this.getPosts()
@@ -156,13 +158,10 @@
     }
 </script>
 
-<style type="text/css">
-
+<style scoped>
     .col{
         display: block;
-    }
-    .blog-container{
-        padding: 0;
+        min-height: 100vh;
     }
     .masonry {
         display: grid;
@@ -180,17 +179,21 @@
     .card{
         box-sizing: border-box;
         box-shadow: 0 0 10px 3px #e4e4e4;
+        position: relative;
     }
 
     .card-content{
         text-align: center;
     }
 /* /-----------------------------navbar------------------------/ */
+    .nav-header{
+        text-align: center;
+
+    }
     .navbar{
         width: 10rem;
         height: 100vh;
         position: relative;
-        background: fuchsia;
 
     }
     .navbar-nav{
@@ -200,13 +203,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: 'bookAntiqua';
+        font-weight: 700;
+        font-size: 20px;
+        color: tomato;
         height: 100%;
+        width: 100%;
     }
 
-    .nav-item{
-        width: 100%;
-        font-family: 'twang';
-        text-transform: uppercase;
-        font-size: 20px;
+    .nav-item a{
+        text-decoration: none;
+        color: brown;
     }
-</style>
+
+</style>>

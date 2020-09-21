@@ -4,7 +4,7 @@
         <v-row>
             <v-col cols="10" class="article-header">
                 <p>{{article.title}}</p>
-                <v-btn v-if="user.loggedIn" @click="$router.push({name:'editBlogPost', params:{id: id}})">Edit</v-btn>
+                <v-btn v-if="user.loggedIn" @click="$router.push({name:'editBlogPost', params:{id: id}})">Szerkesztés</v-btn>
             </v-col>
             <v-col cols="2">
                 <p>{{article.date}}</p>
