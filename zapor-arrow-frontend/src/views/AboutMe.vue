@@ -1,8 +1,7 @@
 <template>
-    <v-container fluid>
-        <v-row>
-            <app-nav-bar />
-        </v-row>
+    <v-content>
+
+        <app-nav-bar header-title="Rólam" />
         <v-row>
             <v-col cols="8">
                 <div>
@@ -19,7 +18,7 @@
                 <v-img src="./../assets/profil.jpg"></v-img>
             </v-col>
         </v-row>
-    </v-container>    
+    </v-content>    
 </template>
 
 <script>

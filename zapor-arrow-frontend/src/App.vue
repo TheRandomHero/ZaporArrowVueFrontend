@@ -18,7 +18,7 @@
       changeBackground(){
         this.isActive = !this.isActive
       }
-    }
+    },
   };
 </script>
 

@@ -1,11 +1,8 @@
 <template>
     <v-container fluid :class="{myBlurEffect: isActive}">
-        <v-row width="100%">
-            <app-nav-bar :bg="image"/>
-        </v-row>
-        <app-nav-bar></app-nav-bar>
-        <div v-if="user.loggedIn" class="alert alert-success" role="alert">You are logged in! <button @click="signOut">Sign Out</button></div>
+        <!-- <div v-if="user.loggedIn" class="alert alert-success" role="alert">You are logged in! <button @click="signOut">Sign Out</button></div> -->
         <v-row >
+        <app-nav-bar header-title="Galéria"></app-nav-bar>
             <v-col cols="10" offset="1"  class="gallery">
                 <div v-for="(tag, index) in tags" :key="index">
                     <image-pop-up :imageTag="tag" :profilPublicId="publicIds[index]"  @blurBackground="changeBackground"/>
@@ -18,12 +15,10 @@
 
 
 <script>
-import NavBar from './../components/NavBar.vue'
-import background from './../assets/gallery-bg.jpg'
+import NavBar from './../components/NavBar.vue' 
 import Popup from './../components/ImagePopUp'
 import Footer from './../components/Footer'
 import axios from 'axios';
-import firebase from 'firebase';
 import { mapGetters } from 'vuex'
 
 export default {
@@ -32,7 +27,6 @@ export default {
             tags:[],
             ids: null,
             isActive:false,
-            image:background,
             dialog:false
         }
     },
@@ -57,16 +51,7 @@ export default {
         changeBackground(){
             this.isActive = !this.isActive
         },
-        signOut(){
-            firebase
-            .auth()
-            .signOut()
-            .then(() =>{
-                this.$router.replace({
-                    name: "home"
-                });
-            });
-        }
+        
     },
     computed:{
         ...mapGetters({

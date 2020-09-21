@@ -41,7 +41,7 @@ const  router = new Router({
     },
     {
       path:'/about-me',
-      name:'aboutMe',
+      name:'about-me',
       component:AboutMe,
 
     },
@@ -60,7 +60,7 @@ const  router = new Router({
     },
     {
       path:'/blog',
-      name:'blogPosts',
+      name:'blog',
       component:BlogPosts,
     },
     {

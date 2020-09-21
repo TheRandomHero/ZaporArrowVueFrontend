@@ -17,8 +17,8 @@
                     </v-textarea>
                 </v-col>
             </v-row>
-            <v-btn type="submit" class="primary">Edit</v-btn>
-            <v-btn @click="deleteArticle" class="error">Delete</v-btn>
+            <v-btn type="submit" class="primary">Szerkesztés</v-btn>
+            <v-btn @click="deleteArticle" class="error">Egész blog törlése</v-btn>
         </form>
     </v-container>    
 </template>

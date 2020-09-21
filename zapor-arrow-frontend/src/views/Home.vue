@@ -45,7 +45,7 @@
                     },
                     {
                         name:"Rólam",
-                        route:"/aboutMe"
+                        route:"/about-me"
                     },
                     {
                         name:"Cikkek",

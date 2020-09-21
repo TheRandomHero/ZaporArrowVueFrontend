@@ -1,18 +1,20 @@
 <template>
 <v-container fluid class="blog-container">
 
-    <nav class="navbar">
-        <p>Témák:</p>
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a  @click.stop="selectedCategory = ''">Összes téma</a> </li>
-            <li v-for="(category,index) in categories" :key="index"
-                class="nav-item">
-                <a @click="selectedCategory = category">{{ category }}</a>
-            </li>
-        </ul>
-    </nav>
+    <app-nav-bar header-title="Blogom"></app-nav-bar>
     <v-row>
+        <v-col cols="2">
+                <p>Témák:</p>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a  @click.stop="selectedCategory = ''">Összes téma</a> </li>
+                    <li v-for="(category,index) in categories" :key="index"
+                        class="nav-item">
+                        <a @click="selectedCategory = category">{{ category }}</a>
+                    </li>
+                </ul>
+
+        </v-col>
         <v-col class="col" >
         <div class="masonry">
             <div v-for="(post, key) in filteredPosts"
@@ -42,6 +44,9 @@
 <script>
     import firebase from './../../firebaseInit'
     const db = firebase.firestore();
+    
+    import NavBar from './../../components/NavBar.vue'
+    
     export default {
         
         data () {
@@ -52,6 +57,9 @@
                 imageCounter: 0,
                 imagesCount: 0
             }
+        },
+        components:{
+            appNavBar:NavBar
         },
         mounted () {
             this.getPosts()
@@ -148,21 +156,19 @@
     }
 </script>
 
-<style lang="scss" type="text/css">
+<style type="text/css">
 
     .col{
         display: block;
     }
     .blog-container{
         padding: 0;
-        box-sizing: border-box;
     }
     .masonry {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-auto-rows: 0;
         grid-gap: 15px;
-        margin-left: 15rem;
         margin-right: 5rem;
     }
     .img-responsive{
@@ -179,11 +185,11 @@
     .card-content{
         text-align: center;
     }
-// ------------navbar-------------------------------
+/* /-----------------------------navbar------------------------/ */
     .navbar{
         width: 10rem;
         height: 100vh;
-        position: fixed;
+        position: relative;
         background: fuchsia;
 
     }

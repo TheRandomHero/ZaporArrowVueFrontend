@@ -3,7 +3,6 @@
         <template v-slot:activator="{ on }">
                 <v-card v-on="on" max-width="250" max-height="250" class="text-center" tag="button" >
                     <v-img :src="imgBaseUrl + profilPublicId + '.jpg' " 
-                    class="align-center" 
                     width="100%" 
                     height="100%"></v-img>
                 </v-card>
@@ -32,7 +31,7 @@
                             width="100%" 
                             height="100%" 
                             @click.stop="next"
-                            class="rounded-xl main-image"
+                            class="main-image"
                          ></v-img>
                         </transition>
                     </v-card>

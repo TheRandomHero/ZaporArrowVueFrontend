@@ -1,24 +1,22 @@
 <template>
-    <v-container fluid>
-
-        <v-img :src="bg">
-
-        <v-toolbar absolute flat color="transparent"  width="100%">
-            <v-spacer />
-            <v-toolbar-items v-for="(item,i) in navItems" :key="i" class="hidden-md-and-down" >
-                <v-btn text router :to="item.route" class="off-active nav-items ">{{ item.text }} </v-btn>
-            </v-toolbar-items>
-            <v-toolbar-items v-if="isLoggedIn" class="hidden-md-and-down">
-                <v-btn text router to="/upload" class="off-active nav-items">Upload</v-btn>
-            </v-toolbar-items>
-        </v-toolbar>
+    <v-container fluid class="header-container">
+        <h3 class="nav-title">{{headerTitle}}</h3>
+       <nav class="my-nav">
+           <ul class="my-nav-nav">
+               <li v-for="(item,i) in filteredNavItems" :key="i"
+                    class="my-nav-item"
+               ><a @click="$router.push(item.route)">{{item.text}}</a></li>
+               <li v-if="user.loggedIn"
+                    class="my-nav-item"><a @click="signOut">Kijelentkezés</a>
+                </li>
+           </ul>
+       </nav>
         <v-app-bar absolute flat color="transparent d-lg-none">
             <v-app-bar-nav-icon class="col-sm-2 col-xs-1" @click="drawer = !drawer">
                 <v-img class="logo-btn" src="./../assets/appolonlogo.png"></v-img>
             </v-app-bar-nav-icon>
         </v-app-bar>
-        
-        </v-img>
+
         <v-navigation-drawer v-model="drawer" app temporary>
             <v-list>
                 <v-list-item v-for="(item,i) in navItems" :key="i" router :to="item.route">
@@ -29,7 +27,7 @@
                         <v-list-item-title>{{ item.text }}</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item v-if="isLoggedIn" router to="/upload">
+                <v-list-item v-if="user.loggedIn" router to="/upload">
                     <v-list-item-icon>
                         <v-icon>fas fa-file-upload</v-icon>
                     </v-list-item-icon>
@@ -44,6 +42,10 @@
 </template>
 
 <script>
+
+import { mapGetters } from 'vuex'
+
+import firebase from 'firebase';
     export default {
         data(){ 
             return {
@@ -51,27 +53,87 @@
                 navItems: [
                     {icon: 'fas fa-chess-rook', text: 'Főoldal', route:'/'},
                     {icon: 'far fa-image', text: 'Galéria', route:'/gallery'},
-                    {icon: 'far fa-id-badge', text: 'Rólam', route:'/aboutMe'}
+                    {icon: 'far fa-id-badge', text: 'Blogom', route:'/blog'},
+                    {icon: 'far fa-id-badge', text: 'Rólam', route:'/about-me'}
                 ],
-                image : '',
             }
         },
-        props: {
-            bg: String
-        },
+        props: [
+            'headerTitle'
+        ],
         computed:{
-            isLoggedIn(){
-                return this.$cookies.isKey('token');
+            ...mapGetters({
+            user: 'user'
+            }),
+            filteredNavItems(){
+                return this.navItems.filter((item) =>{
+                    return !item.route.match(this.$route.name)
+                })
             }
+        },
+        methods:{
+            signOut(){
+            firebase
+            .auth()
+            .signOut()
+            .then(() =>{
+                this.$router.replace({
+                    name: "home"
+                });
+            });
         }
+        }
+        
 
     }
 </script>
 
 <style scoped>
 
+    .header-container{
+        padding: 0;
+    }
+
+    .nav-title{
+        position: absolute;
+        left: 30%;
+        top: 8vh;
+        text-transform: uppercase;
+        font-family: 'twang';
+        font-size: 5rem;
+    }
+    .my-nav{
+        background-image: url('./../assets/gallery-bg.jpg');
+        height: 200px;
+    }
+    .my-nav-nav{
+        position: absolute;
+        display: flex;
+        top: 20vh;
+        right: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    .my-nav-item{
+        line-height: normal;
+        list-style:none;
+        display: inline-block;
+        
+    }
+    .my-nav-item a{
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        text-align: center;
+        text-transform: uppercase;
+        text-decoration: none;
+        font-size: 2rem;
+        font-family: 'twang';
+        color: thistle;
+    }
+
     .v-btn.v-size--default{
-        font-family: 'Web_OldHungarian';
         font-size: 3rem;
         font-weight: 600;
         color: antiquewhite;
