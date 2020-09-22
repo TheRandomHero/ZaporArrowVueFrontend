@@ -4,10 +4,7 @@ import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
 import AboutMe from './views/AboutMe'
-import UpdateArrow from './views/UpdateArrow'
-import Upload from './views/Upload'
 import Login from './views/Login'
-import NewBlogPost from './views/blogViews/NewBlogPost'
 import ViewBlogPost from './views/blogViews/ViewBlogPost'
 import BlogPosts from './views/blogViews/BlogPosts'
 
@@ -32,7 +29,7 @@ const  router = new Router({
     {
       path:'/arrow/:id',
       name:'arrowPage',
-      component:UpdateArrow,
+      component:() => import('./views/UpdateArrow'),
       props: true,
       meta:{
         requiresAuth: true,
@@ -47,7 +44,7 @@ const  router = new Router({
     {
       path:'/upload',
       name:'upload',
-      component:Upload,
+      component:() => import('./views/Upload'),
       meta:{
         requiresAuth: true,
       }
@@ -72,7 +69,7 @@ const  router = new Router({
     {
       path:'/new-blog',
       name:'newBlogPost',
-      component:NewBlogPost,
+      component:() => import('./views/blogViews/NewBlogPost'),
       meta:{
         requiresAuth:true
       }
