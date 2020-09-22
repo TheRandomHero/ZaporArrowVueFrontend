@@ -2,23 +2,20 @@
     <v-container fluid fill-height style="padding:0">
         <app-nav-bar></app-nav-bar>
         <v-row>
-            <v-col cols="10" class="article-header">
+            <v-col  class="article-header">
                 <p>{{article.title}}</p>
                 <v-btn v-if="user.loggedIn" @click="$router.push({name:'editBlogPost', params:{id: id}})">Szerkesztés</v-btn>
             </v-col>
-            <v-col cols="2">
-                <p>{{article.date}}</p>
-
-            </v-col>
         </v-row>
         <v-row>
-            <v-col cols="8" offset="2">
+            <v-col lg="8" offset-lg="2" sm="12">
                 <v-img :src="article.imageUrl"></v-img>
             </v-col>
         </v-row>
         <v-row >
-            <v-col cols="8" >
-                <div class="article-context">{{article.context}}</div>
+            <v-col cols="8" offset="2" class="article-context" >
+                <div>{{article.context}}</div>
+                <p>{{article.date}}</p>
             </v-col>
         </v-row>
     </v-container>    
@@ -65,13 +62,16 @@
 </script>
 <style scoped>
     .article-context{
-        text-align: start;
+        text-align: justify;
         font-family: 'bookAntiqua';
         font-size: 15px ;
         font-weight: 600;
+        white-space: break-spaces;
     }
     .article-header{
         text-align: center;
         font-family: 'twang';
+        font-size: 5rem;
     }
+    
 </style>

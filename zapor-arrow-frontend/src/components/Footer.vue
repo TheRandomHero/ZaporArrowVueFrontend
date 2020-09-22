@@ -1,5 +1,5 @@
 <template>
-    <v-footer dark padless>
+    <v-footer dark padless min-width="100%">
         <v-card tile color="transparent" class="text-center" width="100%">
             <v-card-text >
                 <v-btn v-for="icon in icons" :key="icon.name"

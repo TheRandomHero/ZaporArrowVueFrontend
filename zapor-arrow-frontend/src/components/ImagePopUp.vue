@@ -10,7 +10,7 @@
         <v-container fluid fill-height @click="close" class="popup">
 
             <v-row align="center" justify="center">
-                <v-col cols="8" >
+                <v-col lg="8" sm="12" >
                     <v-card flat class="main-image-card">
                         <v-row>
                             <v-fab-transition >
@@ -36,12 +36,12 @@
                         </transition>
                     </v-card>
                 </v-col>
-                <v-col cols="4">
+                <!-- <v-col cols="4">
                     <v-card flat tile class="description-card">
                         <v-card-title>Description: </v-card-title>
                         <v-card-text v-if="arrow">{{ arrow.description }}</v-card-text>
                 </v-card>
-                </v-col>
+                </v-col> -->
             </v-row>
             <v-row  justify="center" align="end" class="thumb-container">
                 <v-card v-for="(url, i) in imageUrls" :key="i"
@@ -198,5 +198,15 @@ export default {
         transition: opacity 1s;
         opacity: 0;
         position: absolute;
+    }
+
+
+    @media screen and (max-width: 770px){
+        .img-thumbs{
+            width: 25%;
+        }
+        .thumb-container{
+            align-self: baseline;
+        }
     }
 </style>

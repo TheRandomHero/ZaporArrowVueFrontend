@@ -1,8 +1,8 @@
 <template>
     <v-container fluid class="header-container">
-        <h3 class="nav-title">{{headerTitle}}</h3>
+    <h3 class="nav-title">{{headerTitle}}</h3>
        <nav class="my-nav">
-           <ul class="my-nav-nav">
+           <ul class="my-nav-nav hidden-sm-and-down">
                <li v-for="(item,i) in filteredNavItems" :key="i"
                     class="my-nav-item"
                ><a @click="$router.push(item.route)">{{item.text}}</a></li>
@@ -11,7 +11,7 @@
                 </li>
            </ul>
        </nav>
-        <v-app-bar absolute flat color="transparent d-lg-none">
+        <v-app-bar absolute flat color="transparent d-md-none">
             <v-app-bar-nav-icon class="col-sm-2 col-xs-1" @click="drawer = !drawer">
                 <v-img class="logo-btn" src="./../assets/appolonlogo.png"></v-img>
             </v-app-bar-nav-icon>
@@ -53,7 +53,7 @@ import firebase from 'firebase';
                 navItems: [
                     {icon: 'fas fa-chess-rook', text: 'Főoldal', route:'/'},
                     {icon: 'far fa-image', text: 'Galéria', route:'/gallery'},
-                    {icon: 'far fa-id-badge', text: 'Blogom', route:'/blog'},
+                    {icon: 'fas fa-newspaper', text: 'Blogom', route:'/blog'},
                     {icon: 'far fa-id-badge', text: 'Rólam', route:'/about-me'}
                 ],
             }
@@ -145,5 +145,28 @@ import firebase from 'firebase';
     .logo-btn{
         background-size: 100%;
         width: 1em;
+    }
+
+    @media screen and (max-width: 430px){
+        .nav-title{
+            font-size: 2rem;
+        }
+        .my-nav{
+            background-size: contain;
+
+        }
+        .nav-title{
+            color: thistle;
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .logo-btn{
+            top: 25px;
+        }       
+    }
+    @media screen and (min-width: 1400px) {
+        .my-nav-nav{
+            top: 11vh;
+        }
     }
 </style>

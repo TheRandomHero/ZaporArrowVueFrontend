@@ -1,8 +1,8 @@
 <template>
-<v-content>
+<v-content >
     <app-nav-bar header-title="Blogom"></app-nav-bar>
     <v-row>
-        <v-col cols="2">
+        <v-col cols="2" class="hidden-md-and-down ">
                 <ul class="navbar-nav">
                 <p class="nav-header">Témák:</p>
                     <li class="nav-item">
@@ -12,9 +12,17 @@
                         <a @click="selectedCategory = category">{{ category }}</a>
                     </li>
                 </ul>
-
         </v-col>
-        <v-col class="col" >
+
+        <v-col class="col" sm="12" md="12"  lg="8" offset-lg="1" >
+            <v-select :items="Array.from(categories)"
+                        v-model="selectedCategory"
+                        outlined
+                        clearable
+                        clear-icon="X"
+                        label="Téma"
+                        class="drop-select hidden-md-and-up"
+                        ></v-select>
         <div class="masonry">
             <div v-for="(post, key) in filteredPosts"
                 :key="key"
@@ -159,16 +167,11 @@
 </script>
 
 <style scoped>
-    .col{
-        display: block;
-        min-height: 100vh;
-    }
     .masonry {
         display: grid;
+        grid-gap: 15px;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         grid-auto-rows: 0;
-        grid-gap: 15px;
-        margin-right: 5rem;
     }
     .img-responsive{
         max-width: 100%;
@@ -218,4 +221,8 @@
         color: brown;
     }
 
+    .drop-select{
+        padding: 8px;
+    }
+    
 </style>>

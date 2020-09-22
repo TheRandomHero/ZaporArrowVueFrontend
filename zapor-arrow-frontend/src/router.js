@@ -8,7 +8,6 @@ import UpdateArrow from './views/UpdateArrow'
 import Upload from './views/Upload'
 import Login from './views/Login'
 import NewBlogPost from './views/blogViews/NewBlogPost'
-import EditBlogPost from './views/blogViews/EditBlogPost'
 import ViewBlogPost from './views/blogViews/ViewBlogPost'
 import BlogPosts from './views/blogViews/BlogPosts'
 
@@ -41,7 +40,7 @@ const  router = new Router({
     },
     {
       path:'/about-me',
-      name:'about-me',
+      name:'aboutMe',
       component:AboutMe,
 
     },
@@ -60,7 +59,7 @@ const  router = new Router({
     },
     {
       path:'/blog',
-      name:'blog',
+      name:'blogPosts',
       component:BlogPosts,
     },
     {
@@ -82,7 +81,7 @@ const  router = new Router({
     {
       path:'/edit-blog/:id',
       name:'editBlogPost',
-      component:EditBlogPost,
+      component: () => import('./views/blogViews/EditBlogPost'),
       meta:{
         requiresAuth:true
       },
