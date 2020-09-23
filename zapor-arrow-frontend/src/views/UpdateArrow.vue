@@ -106,26 +106,6 @@ import { mapGetters } from 'vuex'
             }
         },
         methods:{
-            deleteArrow(){
-                if(confirm('Are you sure want to delete this Arrow?'))
-                    this.$http.delete(this.baseUrl + '/api/Arrow/',{
-                        headers:{
-                            'Content-type' : 'application/json',
-                            'Authorization' : 'Bearer ' + this.$cookies.get('token')
-                        },
-                        params:{"arrowId": this.$route.params.id}
-                    })
-                    .then(this.$router.push({name:'gallery'}))
-                    .then(
-                        this.$store.dispatch('getGalleryImages')
-                    )
-            },
-
-            deleteImage(deletingId){
-                if(confirm('Are you sure want to delete this Image?'))
-                    this.$store.dispatch("deleteImage", deletingId)
-                
-            },
             onFileSelected(event){
             this.selectedFile = event.target.files[0]
 
@@ -136,30 +116,7 @@ import { mapGetters } from 'vuex'
             fileReader.readAsDataURL(this.selectedFile)
             },
             
-            onUpload(){
-                const fd = new FormData()
-                fd.append('file', this.selectedFile)
-                    this.$http.post(this.baseUrl + '/api/Images/' + this.id, fd,{
-                        headers:{
-                            Authorization : 'Bearer ' + this.$cookies.get('token')
-                        },
-                    })
-                    .then(response=>{
-                        this.$store.dispatch("updateImages", response.data),
-                        this.imageUrl = "",
-                        this.selectedFile = null;
-
-                    })
-            },
-            editDescription(){
-                const fd = new FormData();
-                fd.append('Description', this.arrow)
-                this.$http.put(this.baseUrl + '/api/Arrow/' + this.id, fd,{
-                    headers:{
-                            Authorization : 'Bearer ' + this.$cookies.get('token')
-                        },
-                })
-            }
+            
         },
         components:{
             appNavBar: NavBar,

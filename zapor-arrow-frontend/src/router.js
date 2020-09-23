@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import VueResource from 'vue-resource'
 import Home from './views/Home.vue'
 import Gallery from './views/Gallery'
 import AboutMe from './views/AboutMe'
@@ -11,7 +10,6 @@ import BlogPosts from './views/blogViews/BlogPosts'
 import firebase from 'firebase'
 
 Vue.use(Router);
-Vue.use(VueResource);
 
 const  router = new Router({
   mode: 'history',

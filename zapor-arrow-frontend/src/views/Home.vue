@@ -75,7 +75,7 @@
                         route:"/about-me"
                     },
                     {
-                        name:"Cikkek",
+                        name:"Blogom",
                         route:"/blog"
                     }
                 ]
@@ -162,12 +162,19 @@
             padding: 10px;
         }
     }
-    @media screen and (min-width: 1024px){
-        .menu-item{
-            font-size: 50px;
-            font-family: 'bookAntiqua';
-            direction: ltr;
-            unicode-bidi: normal;
+
+    @media screen and (max-width: 320px){ 
+        .main-title-container{
+            font-size: 4rem;
         }
+        .main-title-container p{
+            padding: 10px;
+        }
+        
+    .sub-title-container{
+        font-size: 3rem;
+        font-family: 'twang';
+        margin: auto;
+    }
     }
 </style>

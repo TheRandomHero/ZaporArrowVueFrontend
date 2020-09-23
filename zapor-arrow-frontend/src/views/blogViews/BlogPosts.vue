@@ -167,6 +167,10 @@
 </script>
 
 <style scoped>
+.row::before, .row::after{
+    content: " ";
+    display: table;
+}
     .masonry {
         display: grid;
         grid-gap: 15px;
@@ -183,6 +187,8 @@
         box-sizing: border-box;
         box-shadow: 0 0 10px 3px #e4e4e4;
         position: relative;
+        display: block;
+        min-height: 200px;
     }
 
     .card-content{

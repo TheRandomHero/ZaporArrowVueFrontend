@@ -58,7 +58,6 @@
 </template>
 
 <script>
-import { mapGetters} from 'vuex'
 import  axios  from 'axios'
 
 
@@ -120,9 +119,6 @@ export default {
         },
     },
     computed:{
-        ...mapGetters([
-            'isLoggedIn'
-        ]),
         imgUrl(){
             const imgSource = this.imageUrls[this.imgIndex]
 
