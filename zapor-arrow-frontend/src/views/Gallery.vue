@@ -1,7 +1,7 @@
 <template>
     <v-container fluid :class="{myBlurEffect: isActive}">
         <!-- <div v-if="user.loggedIn" class="alert alert-success" role="alert">You are logged in! <button @click="signOut">Sign Out</button></div> -->
-        <v-row >
+        <v-row style="padding-bottom:200px">
         <app-nav-bar header-title="Galéria"></app-nav-bar>
             <v-col cols="10" offset="1"  class="gallery">
                 <div v-for="(tag, index) in tags" :key="index">

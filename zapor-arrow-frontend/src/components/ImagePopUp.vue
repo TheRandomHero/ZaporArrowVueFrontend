@@ -14,7 +14,7 @@
                     <v-card flat class="main-image-card">
                         <v-row>
                             <v-fab-transition >
-                                <v-btn v-if="isLoggedIn"
+                                <v-btn v-if="user.loggedIn"
                                 class="btn-fix"
                                 absolute
                                 top
@@ -59,6 +59,8 @@
 
 <script>
 import  axios  from 'axios'
+
+import { mapGetters } from 'vuex'
 
 
 export default {
@@ -123,7 +125,10 @@ export default {
             const imgSource = this.imageUrls[this.imgIndex]
 
             return imgSource
-        }
+        },
+        ...mapGetters({
+                user: 'user'
+                }),
     }
 }
 </script>

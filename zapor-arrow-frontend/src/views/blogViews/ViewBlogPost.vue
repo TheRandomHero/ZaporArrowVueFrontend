@@ -12,12 +12,13 @@
                 <v-img :src="article.imageUrl"></v-img>
             </v-col>
         </v-row>
-        <v-row >
+        <v-row style="padding-bottom:200px">
             <v-col cols="8" offset="2" class="article-context" >
                 <div>{{article.context}}</div>
                 <p>{{article.date}}</p>
             </v-col>
         </v-row>
+        <app-footer></app-footer>
     </v-container>    
 </template>
 
@@ -25,6 +26,7 @@
 <script>
 
     import NavBar from './../../components/NavBar.vue'
+     import Footer from './../../components/Footer'
     import firebase from './../../firebaseInit'
     const db = firebase.firestore();
     import { mapGetters } from 'vuex'
@@ -37,7 +39,8 @@
             }
         },
         components:{
-            appNavBar:NavBar
+            appNavBar:NavBar,
+            appFooter: Footer
         },
         mounted(){
             db.collection('blogs')

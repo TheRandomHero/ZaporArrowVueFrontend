@@ -1,19 +1,19 @@
 <template>
-<v-content >
+<v-content class="blog-container">
     <app-nav-bar header-title="Blogom"></app-nav-bar>
-    <v-row>
+    <v-row style="padding-bottom:200px">
         <v-col cols="2" class="hidden-md-and-down ">
-                <ul class="navbar-nav">
-                <p class="nav-header">Témák:</p>
-                    <li class="nav-item">
-                        <a  @click.stop="selectedCategory = ''">Összes téma</a> </li>
-                    <li v-for="(category,index) in categories" :key="index"
-                        class="nav-item">
-                        <a @click="selectedCategory = category">{{ category }}</a>
-                    </li>
-                </ul>
+            <ul class="navbar-nav">
+            <p class="nav-header">Témák:</p>
+                <li class="nav-item">
+                    <a  @click.stop="selectedCategory = ''">Összes téma</a>
+                </li>
+                <li v-for="(category,index) in categories" :key="index"
+                    class="nav-item">
+                    <a @click="selectedCategory = category">{{ category }}</a>
+                </li>
+            </ul>
         </v-col>
-
         <v-col class="col" sm="12" md="12"  lg="8" offset-lg="1" >
             <v-select :items="Array.from(categories)"
                         v-model="selectedCategory"
@@ -22,13 +22,11 @@
                         clear-icon="X"
                         label="Téma"
                         class="drop-select hidden-md-and-up"
-                        ></v-select>
+            ></v-select>
         <div class="masonry">
             <div v-for="(post, key) in filteredPosts"
                 :key="key"
-                class="card"
-                
-            >
+                class="card" >
                 <div class="card-content">
                     <div v-if="post.imageUrl != ''">
                         <img :src="post.imageUrl" :alt="post.title" class="img-responsive" @load="rendered">
@@ -130,34 +128,18 @@
                 }
             },
             resizeMasonryItem (item) {
-                /* Get the grid object, its row-gap, and the size of its implicit rows */
                 let grid = document.getElementsByClassName('masonry')[0],
                     rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap')),
                     rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
 
-                /*
-                 * Spanning for any brick = S
-                 * Grid's row-gap = G
-                 * Size of grid's implicitly create row-track = R
-                 * Height of item content = H
-                 * Net height of the item = H1 = H + G
-                 * Net height of the implicit row-track = T = G + R
-                 * S = H1 / T
-                 */
 
                 let rowSpan = Math.ceil((item.querySelector('.card-content').getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
 
-                /* Set the spanning as calculated above (S) */
                 item.style.gridRowEnd = 'span ' + rowSpan;
             },
             resizeAllMasonryItems () {
-                // Get all item class objects in one list
                 let allItems = document.getElementsByClassName('card');
 
-                /*
-                 * Loop through the above list and execute the spanning function to
-                 * each list-item (i.e. each masonry item)
-                 */
                 for (let i = 0; i < allItems.length; i++) {
                     this.resizeMasonryItem(allItems[i]);
                 }
@@ -167,10 +149,9 @@
 </script>
 
 <style scoped>
-.row::before, .row::after{
-    content: " ";
-    display: table;
-}
+    .blog-container{
+        height: 100%;
+    }
     .masonry {
         display: grid;
         grid-gap: 15px;
@@ -186,9 +167,9 @@
     .card{
         box-sizing: border-box;
         box-shadow: 0 0 10px 3px #e4e4e4;
-        position: relative;
-        display: block;
-        min-height: 200px;
+        height: 100%;
+        width: 100%;
+        display: table;
     }
 
     .card-content{
