@@ -118,11 +118,12 @@
                         this.posts.push(data)
                     })
                     this.categories = tempCat
+                    this.calculateImageCount()
                 })
             },
             calculateImageCount () {
                 for (let i = 0; i < this.posts.length; i++) {
-                    if (this.posts[i].media.featured.medium != '') {
+                    if (this.posts[i].imageUrl != '') {
                         this.imageCounter++
                     }
                 }
@@ -167,9 +168,7 @@
     .card{
         box-sizing: border-box;
         box-shadow: 0 0 10px 3px #e4e4e4;
-        height: 100%;
-        width: 100%;
-        display: table;
+        height: auto;
     }
 
     .card-content{
